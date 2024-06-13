@@ -1,13 +1,14 @@
 
 var mysql = require('mysql2')
+require('dotenv').config()
 
 const pool = mysql.createPool({
 
-  host : '127.0.0.1',
-  user: 'root',
-  password:'123',
+  host : 'db-mysql-blr1-86728-do-user-16935862-0.c.db.ondigitalocean.com',
+  user: 'doadmin',
+  password: 'ss',
     database: 'wordcreation',
-    port:'3306' ,
+    port:'25060' ,
     multipleStatements: true,
 
 
