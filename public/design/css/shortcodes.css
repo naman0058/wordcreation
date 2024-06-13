@@ -403,7 +403,7 @@
 .dark-bg .title, .theme-bg .title{color: #ffffff}
 .section-title h6{padding: 3px 5px; position: relative; display: inline-block; font-weight: 500; background: #ff5e2c; color: #ffffff; margin-bottom: 20px;}
 
-.title:before {position:absolute; left: 0; width:100px; margin:0 auto; bottom:0; height: 3px; animation: rotate 80s infinite linear; -webkit-animation: rotate 80s infinite linear; content: ""; border-radius: 5px;
+.title:before {position:absolute; left: 0; width:100px; margin:0 auto; bottom:0; height: 3px; content: ""; border-radius: 5px;
   background: rgb(255,120,16); /* Old browsers */
 background: -moz-linear-gradient(left,  rgba(255,120,16,1) 0%, rgba(255,21,106,1) 25%, rgba(255,94,44,1) 50%, rgba(187,13,76,1) 75%, rgba(69,204,137,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,120,16,1)), color-stop(25%,rgba(255,21,106,1)), color-stop(50%,rgba(255,94,44,1)), color-stop(75%,rgba(187,13,76,1)), color-stop(100%,rgba(255,120,16,1))); /* Chrome,Safari4+ */

@@ -4,24 +4,39 @@ var pool = require('./pool');
 const util = require('util');
 const queryAsync = util.promisify(pool.query).bind(pool);
 var verify = require('./verify');
+var onPageSeo = require('./onPageSeo');
+
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var query = `select * from manage_filters where filters = 'services' and status = true order by id desc;`
-  var query = `select * from manage_filters where filters = 'portfolio' and status = true order by id desc;`
-
-  res.render('index', { title: 'Express' , page:'home'});
+  var query1 = `select * from manage_filters where filters = 'university' and status = true order by id desc;`
+  var query2 = `select * from blogs order by id desc limit 3;`
+  pool.query(query+query1+query2,(err,result)=>{
+    if(err) throw err;
+    else res.render('index', { title: 'Express' , page:'home',result, MetaTags : onPageSeo.homePage });
+  })
 });
 
 
 router.get('/user/signup',(req,res)=>{
-  res.render('signup',{msg:req.query.message,color:req.query.color,page:'signup'})
+  res.render('signup',{msg:req.query.message,color:req.query.color,page:'signup',MetaTags : onPageSeo.siguupPage})
 })
 
 
 router.get('/user/login',(req,res)=>{
-  res.render('userlogin',{msg:req.query.message,color:req.query.color,page:'login'})
+  res.render('userlogin',{msg:req.query.message,color:req.query.color,page:'login',MetaTags : onPageSeo.loginPage})
+})
+
+
+router.get('/privacy-policy',(req,res)=>{
+  res.render('privacy-policy',{msg:req.query.message,color:req.query.color,page:'privacy',MetaTags : onPageSeo.privacyPage})
+})
+
+
+router.get('/terms-and-conditions',(req,res)=>{
+  res.render('terms',{msg:req.query.message,color:req.query.color,page:'terms',MetaTags : onPageSeo.termsPage})
 })
 
 
@@ -84,7 +99,7 @@ router.get('/services',(req,res)=>{
   pool.query(`select * from manage_filters where filters = 'services' and status = true order by id desc`,(err,result)=>{
     if(err) throw err;
     else {
-      res.render('services',{result,page:'service'})
+      res.render('services',{result,page:'service',MetaTags : onPageSeo.servicePage})
       // res.json(result)
     }
   })
@@ -95,7 +110,7 @@ router.get('/portfolio',(req,res)=>{
   pool.query(`select * from manage_filters where filters = 'portfolio' and status = true order by id desc`,(err,result)=>{
     if(err) throw err;
     else {
-      res.render('portfolio',{result,page:'portfolio'})
+      res.render('portfolio',{result,page:'portfolio', MetaTags : onPageSeo.portfolioPage})
       // res.json(result)
     }
   })
@@ -106,7 +121,22 @@ router.get('/blog',(req,res)=>{
   pool.query(`select * from blogs order by id desc`,(err,result)=>{
     if(err) throw err;
     else {
-      res.render('blog',{result,page:'blog'})
+      res.render('blog',{result,page:'blog',MetaTags : onPageSeo.blogPage})
+      // res.json(result)
+    }
+  })
+})
+
+
+
+router.get('/blogs/:seoname',(req,res)=>{
+  var query  = `select * from blogs where seo_name = '${req.params.seoname}';`
+  var query1 = `select * from blogs where seo_name != '${req.params.seoname}' order by id desc limit 10;`
+  var query2 = `select * from comment where blogid = (select b.id from blogs b where b.seo_name = '${req.params.seoname}') order by id desc;`
+  pool.query(query+query1+query2,(err,result)=>{
+    if(err) throw err;
+    else {
+      res.render('blogDetails',{result,page:'blog',MetaTags : onPageSeo.blogPage})
       // res.json(result)
     }
   })
@@ -114,7 +144,7 @@ router.get('/blog',(req,res)=>{
 
 
 router.get('/contact-us',(req,res)=>{
-  res.render('contact',{page:'contact',message:req.query.message})
+  res.render('contact',{page:'contact',message:req.query.message,MetaTags : onPageSeo.contactPage})
 })
 
 
@@ -164,5 +194,17 @@ router.get('/sportzkeeda-create',(req,res)=>{
  })
 
 
+
+
+ router.post('/comment/:seoname',(req,res)=>{
+  let body = req.body;
+  body.created_at = verify.getCurrentDate()
+  pool.query(`insert into comment set ?`,body,(err,result)=>{
+    if(err) throw err;
+    else {
+      res.redirect(`/blogs/${req.params.seoname}`)
+    }
+  })
+ })
 
 module.exports = router;

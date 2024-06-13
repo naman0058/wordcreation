@@ -172,7 +172,7 @@ a, i, .btn, button, img, .animatedBackground, .navbar-nav .nav-link:before, .dro
 .navbar-brand{margin-right: 0;}
 .navbar-nav .nav-item{margin: 0 3px}
 .navbar-nav .nav-link{color: #111121; font-weight: 500; padding: 15px 10px !important; border-radius: 0; text-transform: capitalize; overflow: hidden; position: relative;}
-.navbar-nav .nav-link:before {position:absolute; left: 0; width:100%; margin:0 auto; bottom:0; height: 3px; animation: rotate 80s infinite linear; -webkit-animation: rotate 80s infinite linear; content: ""; border-radius: 5px; opacity: 0;
+.navbar-nav .nav-link:before {position:absolute; left: 0; width:100%; margin:0 auto; bottom:0; height: 3px; content: ""; border-radius: 5px; opacity: 0;
   background: rgb(255,120,16); /* Old browsers */
 background: -moz-linear-gradient(left,  rgba(255,120,16,1) 0%, rgba(255,21,106,1) 25%, rgba(255,183,47,1) 50%, rgba(187,13,76,1) 75%, rgba(69,204,137,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,120,16,1)), color-stop(25%,rgba(255,21,106,1)), color-stop(50%,rgba(255,183,47,1)), color-stop(75%,rgba(187,13,76,1)), color-stop(100%,rgba(255,120,16,1))); /* Chrome,Safari4+ */

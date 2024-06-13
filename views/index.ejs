@@ -60,59 +60,25 @@
       </div>
       <div class="col-lg-7 col-md-12 mt-5 mt-lg-0">
         <div class="owl-carousel no-pb" data-dots="false" data-items="2" data-sm-items="1" data-autoplay="true">
+         
+         
+         <% for(i=0;i<result[0].length;i++) { %>
           <div class="item">
             <div class="featured-item text-center style-2 mx-3 my-3">
               <div class="featured-icon">
-                <img class="img-fluid" src="/design/images/feature/01.png" alt="">
+                <img class="img-fluid" src="images/<%=result[0][i].image%>" alt="<%=result[0][i].name%>">
               </div>
               <div class="featured-title">
-                <h5>Academic Writing</h5>
+                <h5><%=result[0][i].name%></h5>
               </div>
               <div class="featured-desc">
-                <p>Design must be functional, and futionality must translated into, and futionality must translated into.</p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="featured-item text-center style-2 mx-3 my-3">
-              <div class="featured-icon">
-                <img class="img-fluid" src="/design/images/feature/02.png" alt="">
-              </div>
-              <div class="featured-title">
-                <h5>CV/Resume Writing</h5>
-              </div>
-              <div class="featured-desc">
-                <p>Design must be functional, and futionality must translated into, and futionality must translated into.</p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="featured-item text-center style-2 mx-3 my-3">
-              <div class="featured-icon">
-                <img class="img-fluid" src="/design/images/feature/03.png" alt="">
-              </div>
-              <div class="featured-title">
-                <h5>Market Report Writing</h5>
-              </div>
-              <div class="featured-desc">
-                <p>Design must be functional, and futionality must translated into, and futionality must translated into.</p>
+                <p><%=result[0][i].description%></p>
               </div>
             </div>
           </div>
 
-          <div class="item">
-            <div class="featured-item text-center style-2 mx-3 my-3">
-              <div class="featured-icon">
-                <img class="img-fluid" src="/design/images/feature/03.png" alt="">
-              </div>
-              <div class="featured-title">
-                <h5>Infographics Designing</h5>
-              </div>
-              <div class="featured-desc">
-                <p>Design must be functional, and futionality must translated into, and futionality must translated into.</p>
-              </div>
-            </div>
-          </div>
+          <% } %>
+          
         </div>
       </div>
     </div>
@@ -276,30 +242,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="ht-clients d-flex flex-wrap align-items-center text-center">
+         <% for(i=0;i<result[1].length;i++) { %>
+
           <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/07.png" alt="">
+            <img class="img-fluid" src="/images/<%=result[1][i].image%>" alt="">
           </div>
-          <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/08.png" alt="">
-          </div>
-          <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/09.png" alt="">
-          </div>
-          <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/10.png" alt="">
-          </div>
-          <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/11.png" alt="">
-          </div>
-          <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/12.png" alt="">
-          </div>
-          <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/12.png" alt="">
-          </div>
-          <div class="clients-logo">
-            <img class="img-fluid" src="/design/images/client/12.png" alt="">
-          </div>
+          <% } %>
+          
+        
         </div>
       </div>
     </div>
@@ -434,51 +384,27 @@
       </div>
     </div>
     <div class="row">
+
+
+      <% for(i=0;i<result[2].length;i++) { %>
+
+
       <div class="col-lg-4 col-md-12">
         <div class="post style-2">
           <div class="post-image">
-            <img class="img-fluid h-100 w-100" src="/design/images/blog/01.jpg" alt="">
+            <img class="img-fluid h-100 w-100" src="images/<%=result[2][i].image%>" alt="">
           </div>
           <div class="post-desc">
-            <div class="post-date">23 <span>November 2018</span>
-            </div>
+            <!-- <div class="post-date">23 <span>November 2018</span>
+            </div> -->
             <div class="post-title">
-              <h5><a href="blog-details.html">The Powerfull look for best in 2018</a></h5>
+              <h5><a href="/blogs/<%=result[2][i].seo_name%>"><%=result[2][i].name%></a></h5>
             </div>
-            <p>Phasellus eget purus id felis dignissim convallis Suspendisse et augue dui gravida</p>
+            <p><%=result[2][i].description%></p>
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-12 mt-5 mt-lg-0">
-        <div class="post style-2">
-          <div class="post-image">
-            <img class="img-fluid h-100 w-100" src="/design/images/blog/02.jpg" alt="">
-          </div>
-          <div class="post-desc">
-            <div class="post-date">23 <span>November 2018</span>
-            </div>
-            <div class="post-title">
-              <h5><a href="blog-details.html">Loptus It's Awesome, We need your help</a></h5>
-            </div>
-            <p>Phasellus eget purus id felis dignissim convallis Suspendisse et augue dui gravida</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-12 mt-5 mt-lg-0">
-        <div class="post style-2">
-          <div class="post-image">
-            <img class="img-fluid h-100 w-100" src="/design/images/blog/03.jpg" alt="">
-          </div>
-          <div class="post-desc">
-            <div class="post-date">23 <span>November 2018</span>
-            </div>
-            <div class="post-title">
-              <h5><a href="blog-details.html">We Become Best sale marketer in a year!</a></h5>
-            </div>
-            <p>Phasellus eget purus id felis dignissim convallis Suspendisse et augue dui gravida</p>
-          </div>
-        </div>
-      </div>
+    <% } %>
     </div>
   </div>
 </section>
