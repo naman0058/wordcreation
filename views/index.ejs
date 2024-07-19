@@ -1,6 +1,39 @@
 <%- include ('./includes/header.ejs') %>
 
+<style>
+  .featured-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%; /* Ensure the card takes full height of its container */
+  min-height: 300px; /* Set a minimum height */
+}
 
+.featured-icon img {
+  max-height: 150px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.featured-title {
+  margin-bottom: 15px;
+}
+
+.featured-desc {
+  flex-grow: 1;
+}
+
+/* Ensures uniform height for carousel items */
+.owl-carousel .item {
+  display: flex;
+  align-items: stretch;
+}
+
+</style>
 
 <!--hero section start-->
 
@@ -17,10 +50,13 @@
 									<img class="img-fluid animated zoomIn delay-2 duration-2" src="/design/images/banner/03.png" alt="">
 								</div>
 								<div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
-									<h1 class="mb-4 animated fadeInUp duration-2">Explore the Academic Success with <span class="font-w-5">Word Creation</span></h1>
-									<p class="animated fadeInUp delay-1 duration-2">Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.</p>
+									<h1 class="mb-4 animated fadeInUp duration-2" style="font-size: 35px;line-height: 45px;">Transfer the pain of solving academic complexity to the pleasure of high score in three steps with academic writing services from<span class="font-w-5"> Word Creation</span></h1>
+									<p class="animated fadeInUp delay-1 duration-2">Ensure 100% success with Word Creation’s academic writing services and pave your path to success .</p>
+                  <p><span class="font-w-5"> Trust Word Creation with confidence</span></p>
                   <div class="animated fadeInUp delay-2 duration-2">
-                    <a class="btn btn-theme" href="/contact-us"><span>Contact Us</span></a>
+                    <a class="btn btn-white" href="/contact-us"><span>Ask for samples</span></a>
+                    <a class="btn btn-theme" href="/contact-us"><span>Book a meeting</span></a>
+
                   </div>
 								</div>
 							</div>
@@ -33,6 +69,8 @@
 </section>
 
 <!--hero section end-->
+
+
 
 
 <!--body content start-->
@@ -53,16 +91,16 @@
           <h2 class="title">We Have Best Feature</h2> 
         </div>
         <ul class="list-unstyled list-icon">
-          <li class="mb-3"><i class="flaticon-tick"></i> Mattis effic iturut magna pelle ntesque sit</li>
-          <li class="mb-3"><i class="flaticon-tick"></i> Phasellus eget purus id felis dignissim convallis</li>
-          <li><i class="flaticon-tick"></i> Fusce enim nulla mollis eu metus in sagittis fringilla</li>
+          <li class="mb-3"><i class="flaticon-tick"></i> Ensure high grades with 100% human generated plagiarism-free content with Word Creation’s academic writing services </li>
+          
         </ul>
+        <p style="font-weight: bold;">Book Your Service In Word Creation And Ensure Excellence</p>
+        <a class="btn btn-theme" href="/contact-us"><span>Contact Us </span></a>
+
       </div>
       <div class="col-lg-7 col-md-12 mt-5 mt-lg-0">
         <div class="owl-carousel no-pb" data-dots="false" data-items="2" data-sm-items="1" data-autoplay="true">
-         
-         
-         <% for(i=0;i<result[0].length;i++) { %>
+          <% for(i=0;i<result[0].length;i++) { %>
           <div class="item">
             <div class="featured-item text-center style-2 mx-3 my-3">
               <div class="featured-icon">
@@ -76,14 +114,13 @@
               </div>
             </div>
           </div>
-
           <% } %>
-          
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <!--about end-->
 
@@ -95,26 +132,26 @@
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-6">
         <div class="counter style-2">
-          <img class="img-fluid" src="/design/images/counter/01.png" alt=""> <span class="count-number" data-to="2304" data-speed="10000">2304</span>
-          <h5>Project Done</h5>
+          <img class="img-fluid" src="/design/images/counter/01.png" alt=""> <span class="count-number" data-to="2304">2304</span>
+          <h5>Total projects</h5>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6 mt-5 mt-sm-0">
         <div class="counter style-2">
-          <img class="img-fluid" src="/design/images/counter/02.png" alt=""> <span class="count-number" data-to="3585" data-speed="10000">3585</span>
-          <h5>Success Rate</h5>
+          <img class="img-fluid" src="/design/images/counter/02.png" alt=""> <span class="count-number" data-to="90">90 Percent</span>
+          <h5>Project success rate</h5>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6 mt-5 mt-md-0">
         <div class="counter style-2">
-          <img class="img-fluid" src="/design/images/counter/03.png" alt=""> <span class="count-number" data-to="1365" data-speed="10000">1365</span>
-          <h5>Awards</h5>
+          <img class="img-fluid" src="/design/images/counter/03.png" alt=""> <span class="count-number" data-to="10000">10000</span>
+          <h5>Satisfied clients</h5>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6 mt-5 mt-md-0">
         <div class="counter style-2">
-          <img class="img-fluid" src="/design/images/counter/04.png" alt=""> <span class="count-number" data-to="4328" data-speed="10000">4328</span>
-          <h5>Happy Client</h5>
+          <img class="img-fluid" src="/design/images/counter/04.png" alt=""> <span class="count-number" data-to="10">10</span>
+          <h5>University covered</h5>
         </div>
       </div>
     </div>
@@ -127,39 +164,7 @@
 
 <!--how it work start-->
 
-<section class="position-relative bg-contain bg-pos-r" data-bg-img="/design/images/bg/02.png">
-  <div class="container-fluid px-lg-3 px-md-8 px-3">
-    <div class="row align-items-center">
-      <div class="col-lg-5 bg-contain bg-pos-l" data-bg-img="/design/images/pattern/07.png">
-        <img class="img-fluid" src="/design/images/about/01.png" alt="">
-      </div>
-      <div class="col-lg-5 col-md-12 me-auto mt-5 mt-lg-0 ps-lg-11">
-        <div class="section-title">
-          <h6>How It Work</h6>
-          <h2 class="title">Three Step For Get Your Work Done</h2> 
-        </div>
-        <div class="work-process style-2">
-          <div class="work-process-inner"> <span class="step-num" data-bg-color="#ff7810">01</span>
-            <h4>Provide Your Necessity</h4>
-            <p class="mb-0">Fusce enim nulla mollis eu metus in sagittis fringilla lnim nulla</p>
-          </div>
-        </div>
-        <div class="work-process style-2 mt-5">
-          <div class="work-process-inner"> <span class="step-num" data-bg-color="#ff156a">02</span>
-            <h4>Project Payment</h4>
-            <p class="mb-0">Fusce enim nulla mollis eu metus in sagittis fringilla lnim nulla</p>
-          </div>
-        </div>
-        <div class="work-process style-2 mt-5">
-          <div class="work-process-inner"> <span class="step-num" data-bg-color="#ffb72f">03</span>
-            <h4>Get Your Project</h4>
-            <p class="mb-0">Fusce enim nulla mollis eu metus in sagittis fringilla lnim nulla</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!--how it work end-->
 
@@ -203,17 +208,33 @@
       <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
         <div class="section-title mb-3">
           <h6>What We Do</h6>
-          <h2>We iusto Creative Digital Agency, We Provide professional Web page.</h2>
+          <h2>Why should you choose Word Creation for academic writing services?</h2>
         </div>
-        <p class="text-black">Deos et accusamus et iusto odio dignissimos qui blanditiis praesentium voluptatum dele corrupti quos dolores et quas molestias a orci facilisis rutrum.</p>
+        <p class="text-black">Our experts in Word Creation believe in quality over quantity. Be it a report or a dissertation, an essay or reflective writing, technical writing, or a legal piece, our experts have the best solution to each of your academic complexities. Here is why must chose us.</p>
         <ul class="custom-li list-unstyled list-icon-2 my-3 d-inline-block">
-          <li>Focused Academic Writing</li>
-          <li>Freelancing Experience</li>
-          <li>Work Commitment</li>
-          <li>Authentic Output</li>
-          <li>Subject Knowledge</li>
-          <li>Accessbility</li>
-        </ul> <a class="btn btn-theme" href="#"><span>Let's Start</span></a>
+          <li>100% human-produced content</li>
+          <li>Plagiarism-free writing</li>
+          <li>Free rework service</li>
+          <li>Quality over quantity</li>
+          <li>One project at a time</li>
+          <li>Urgent academic writing services</li>
+          <li>Competitive Pricing</li>
+          <li>Flexible payment option</li>
+          <li>Discount in bulk order</li>
+          <li>Subject matter experts for each domain</li>
+          <li>Free and flexible opportunity for revision</li>
+          <li>90% acceptance rate in global universities</li>
+          <li>100% warranty of submission within the deadline</li>
+          <li>Initial multiple meetings for developing clear ideas about the requirements</li>
+
+
+      </ul>
+      <p class="text-black" style="font-weight: bold;">Confidentiality is not an option for us in Word Creation </p>
+
+      <p class="text-black">In the digital era where information manipulation is becoming a rising concern, we ensure the utmost security of our client’s personal information.</p>
+
+      
+        <a class="btn btn-theme" href="/contact-us"><span>Still, researching? Let's see what you need. Book a meeting. </span></a>
       </div>      
     </div>
   </div>
@@ -240,6 +261,8 @@
 <section>
   <div class="container">
     <div class="row">
+      <h2 class="title">Trusted by students across universities as the best academic wiring services agency</h2> 
+
       <div class="col-md-12">
         <div class="ht-clients d-flex flex-wrap align-items-center text-center">
          <% for(i=0;i<result[1].length;i++) { %>
@@ -259,93 +282,219 @@
 <!--client logo end-->
 
 
+<section class="overflow-hidden">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-12">
+        <div class="info-img position-relative">
+          <img class="img-fluid topBottom" src="design/images/about/02.png" alt="">
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
+        <div class="section-title mb-4">
+          <h2 class="title">Our Best Academic Writing Services</h2> 
+          <p class="mb-0 text-black">We provide personalized academic content keeping your specific requirements in mind. Our academic writing services include:</p>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="list-unstyled list-icon">
+              <li class="mb-3"><i class="flaticon-tick"></i> Essay writing</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Report</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Reflective writing</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Academic blog</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Thesis</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-unstyled list-icon">
+              <li class="mb-3"><i class="flaticon-tick"></i> Abstract</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Ethics form</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Case study</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Technical writing</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Law assignments</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-unstyled list-icon">
+              <li class="mb-3"><i class="flaticon-tick"></i> Research articles</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Literary reviews</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> CV and cover letter</li>
+              <li class="mb-3"><i class="flaticon-tick"></i> Dissertation (based on both qualitative and quantitative research)</li>
+
+            </ul>
+          </div>
+        </div>
+        <p class="mt-4">Connect with us for any other projects. Specify your requirements and get on-time delivery at the lowest price.</p>
+        <a class="btn btn-theme" href="/contact-us"><span>Book our expert for your project/assignment</span></a>
+     
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--content end-->
+
+
+<!--content start-->
+
+<section class="pt-0 overflow-hidden">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-12 order-lg-1">
+        <div class="info-img position-relative">
+          <img class="img-fluid topBottom" src="design/images/about/03.png" alt="">
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
+        <div class="section-title mb-4">
+          <h2 class="title">Subjects We Cover</h2>
+        </div>
+        <ul class="list-unstyled list-icon row">
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Management</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Law</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Finance</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Technical Writing</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Nursing Management</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Literature</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Marketing</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Computer Science</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> History</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Political Science</li>
+          <li class="col-md-4 mb-3"><i class="flaticon-tick"></i> Human Resource Management</li>
+        </ul>
+        <p>If you are looking for services from other subject domains, feel free to contact us. Our experts in Word Creation are available 24*7.</p>
+        <a class="btn btn-theme" href="/contact-us"><span>Book a meeting</span></a>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 <!--tab start-->
 
-<section class="light-bg animatedBackground" data-bg-img="/design/images/pattern/05.png">
+<section class="light-bg position-relative text-center overflow-hidden">
+  <div class="pattern-3">
+    <img class="img-fluid rotateme" src="images/pattern/03.png" alt="">
+  </div>
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="tab style-2 ">
-          <!-- Nav tabs -->
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-link active" id="nav-tab1" data-bs-toggle="tab" href="#tab1-1" role="tab" aria-selected="true">Marketing</a>
-              <a class="nav-link" id="nav-tab2" data-bs-toggle="tab" href="#tab1-2" role="tab" aria-selected="false">Planning</a>
-              <a class="nav-link" id="nav-tab3" data-bs-toggle="tab" href="#tab1-3" role="tab" aria-selected="false">Anlysis</a>
-              <a class="nav-link" id="nav-tab4" data-bs-toggle="tab" href="#tab1-4" role="tab" aria-selected="false">Stratergy</a>
-            </div>
-          </nav>
-          <!-- Tab panes -->
-          <div class="tab-content" id="nav-tabContent">
-            <div role="tabpanel" class="tab-pane fade show active" id="tab1-1">
-              <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12">
-                  <img class="img-fluid" src="/design/images/about/02.png" alt="">
-                </div>
-                <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
-                  <h4 class="title">Powerful & Awesome Marketing</h4>
-                  <p>Simply dummy text of the printing and typesetting industry. standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                  <ul class="list-unstyled list-icon">
-                    <li class="mb-3"><i class="flaticon-tick"></i> Mattis effic iturut magna pelle ntesque sit</li>
-                    <li class="mb-3"><i class="flaticon-tick"></i> Phasellus eget purus id felis dignissim convallis</li>
-                    <li><i class="flaticon-tick"></i> Fusce enim nulla mollis eu metus in sagittis fringilla</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="tab1-2">
-              <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12">
-                  <img class="img-fluid" src="/design/images/about/02.png" alt="">
-                </div>
-                <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
-                  <h4 class="title">Powerful & Awesome Marketing</h4>
-                  <p>Simply dummy text of the printing and typesetting industry. standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                  <ul class="list-unstyled list-icon">
-                    <li class="mb-3"><i class="flaticon-tick"></i> Mattis effic iturut magna pelle ntesque sit</li>
-                    <li class="mb-3"><i class="flaticon-tick"></i> Phasellus eget purus id felis dignissim convallis</li>
-                    <li><i class="flaticon-tick"></i> Fusce enim nulla mollis eu metus in sagittis fringilla</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="tab1-3">
-              <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12">
-                  <img class="img-fluid" src="/design/images/about/02.png" alt="">
-                </div>
-                <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
-                  <h4 class="title">Powerful & Awesome Marketing</h4>
-                  <p>Simply dummy text of the printing and typesetting industry. standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                  <ul class="list-unstyled list-icon">
-                    <li class="mb-3"><i class="flaticon-tick"></i> Mattis effic iturut magna pelle ntesque sit</li>
-                    <li class="mb-3"><i class="flaticon-tick"></i> Phasellus eget purus id felis dignissim convallis</li>
-                    <li><i class="flaticon-tick"></i> Fusce enim nulla mollis eu metus in sagittis fringilla</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="tab1-4">
-              <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12">
-                  <img class="img-fluid" src="/design/images/about/02.png" alt="">
-                </div>
-                <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
-                  <h4 class="title">Powerful & Awesome Marketing</h4>
-                  <p>Simply dummy text of the printing and typesetting industry. standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                  <ul class="list-unstyled list-icon">
-                    <li class="mb-3"><i class="flaticon-tick"></i> Mattis effic iturut magna pelle ntesque sit</li>
-                    <li class="mb-3"><i class="flaticon-tick"></i> Phasellus eget purus id felis dignissim convallis</li>
-                    <li><i class="flaticon-tick"></i> Fusce enim nulla mollis eu metus in sagittis fringilla</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+      <div class="col-lg-8 col-md-12 mx-auto">
+        <div class="section-title">
+          <h2 class="title">Do You Know the Key Features of Academic Writing?</h2>
+          <p>Before you select any writing service for your academic projects, essays, reports, etc., know the core characteristics that you should include in your writing</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="featured-item text-center">
+          <div class="featured-icon">
+            <img class="img-fluid" src="images/feature/04.png" alt="">
           </div>
+          <div class="featured-title">
+            <h5>Formal Tone</h5>
+          </div>
+          <div class="featured-desc">
+            <p>Be it an essay, report, or reflective writing, the tone of your academic writing should be formal. The use of colloquial language is strictly to be avoided. Study the example. Formal: Your report is acceptable. Informal: Your report is okay. Note the difference and choose the right tone for your assignment. Consult with our professionals for the best academic writing service.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 sm-mt-3">
+        <div class="featured-item text-center">
+          <div class="featured-icon">
+            <img class="img-fluid" src="images/feature/05.png" alt="">
+          </div>
+          <div class="featured-title">
+            <h5>Concise</h5>
+          </div>
+          <div class="featured-desc">
+            <p>Concentrate on presenting the relevant information in your writing. Your academic paper should be pointed and concise. Keep in mind the prescribed word count for your project.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 md-mt-3">
+        <div class="featured-item text-center">
+          <div class="featured-icon">
+            <img class="img-fluid" src="images/feature/06.png" alt="">
+          </div>
+          <div class="featured-title">
+            <h5>Structure</h5>
+          </div>
+          <div class="featured-desc">
+            <p>The piece of academic writing must have a basic structure. Sometimes you may have to follow the structure as prescribed in the assignment guide. The basic structure incorporates three parts: introduction, discussion, or the main answer, and conclusion. Based on the project, the structure differs.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 mt-3">
+        <div class="featured-item text-center">
+          <div class="featured-icon">
+            <img class="img-fluid" src="images/feature/07.png" alt="">
+          </div>
+          <div class="featured-title">
+            <h5>Citation</h5>
+          </div>
+          <div class="featured-desc">
+            <p>Incorporate the references in your writing in the right manner. You may have to include the references of the books, articles, or any online or offline sources you have consulted for your assignment in different referencing styles such as Harvard, APA, OSCOLA, or MLA. Consult the best academic writing services for producing well-structured and properly cited assignments for higher scores.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 mt-3">
+        <div class="featured-item text-center">
+          <div class="featured-icon">
+            <img class="img-fluid" src="images/feature/08.png" alt="">
+          </div>
+          <div class="featured-title">
+            <h5>Language</h5>
+          </div>
+          <div class="featured-desc">
+            <p>You must use formal and clear words and phrases. There must not be any ambiguity in the meaning of the words. You should use relevant vocabulary to explain the related terms and concepts.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 mt-3">
+        <div class="featured-item text-center">
+          <div class="featured-icon">
+            <img class="img-fluid" src="images/feature/09.png" alt="">
+          </div>
+          <div class="featured-title">
+            <h5>Evidenced-Based and Theoretically-Informed</h5>
+          </div>
+          <div class="featured-desc">
+            <p>In-depth research is expected from academic projects. Thus, the writing should be detailed and evidence-based. You must support the arguments, concepts, or ideas with academic evidence and theories. These reflect the quality of your research. As a writer, you must cite the sources related to your argument in the right form.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mt-3">
+        <div class="featured-item text-center">
+          <div class="featured-icon">
+            <img class="img-fluid" src="images/feature/09.png" alt="">
+          </div>
+          <div class="featured-title">
+            <h5>Argumentative and persuasive </h5>
+          </div>
+          <div class="featured-desc">
+            <p>Critical thinking is the other characteristic of quality academic writing. Thus, you must adopt an argumentative tone to critically analyze various factors based on academic guidelines and concepts to present your unique idea persuasively.  
+              Communication of new and authentic ideas is the key to good marks. Take the support of the best academic writing services to ensure argumentative and persuasive representation of unique ideas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 40px;">
+      <div class="col-lg-8 col-md-12 mx-auto">
+        <div class="section-title">
+          <h2 class="title">Still confused about the assignment? Don’t worry. Let’s talk</h2>
+          <a class="btn btn-theme" href="/contact-us"><span>Schedule a meeting with us  </span></a>
+        
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <!--tab end-->
 
@@ -410,6 +559,264 @@
 </section>
 
 <!--blog end-->
+
+
+<!--testimonial start-->
+
+<section class="animatedBackground" data-bg-img="images/pattern/05.png">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-5 col-md-12">
+        <div class="section-title mb-0">
+          <h6>Testimonial</h6>
+          <h2 class="title">Let’s hear what our happy clients have to say about our academic writing services and essay writing services </h2>
+          <a class="btn btn-theme" href="/contact-us"><span>Contact us for any query </span></a>
+        
+        </div>
+      </div>
+      <div class="col-lg-7 col-md-12 mt-5 mt-lg-0">
+        <div class="owl-carousel" data-items="1">
+          <div class="item">
+            <div class="testimonial">
+              <div class="testimonial-img">
+                <img class="img-fluid" src="images/thumbnail/01.png" alt="">
+              </div>
+              <div class="testimonial-content">
+                <p>Being a foreign student it was very challenging for me to manage the difference and academic activities at the same time. Professionals from Word Creation have guided me throughout my first year and helped me to ensure 70% marks in my first year.</p>
+                <div class="testimonial-caption">
+                  <h5>Nikita Pandey</h5>
+                  <label>Royal Holloway, University of London</label>
+                </div>
+              </div>
+              <div class="testimonial-quote"><i class="flaticon-quotation"></i></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimonial">
+              <div class="testimonial-img">
+                <img class="img-fluid" src="images/thumbnail/01.png" alt="">
+              </div>
+              <div class="testimonial-content">
+                <p>I got 75% for my assignment. What I like the most is their flexible review service. The expert made sure to ensure the last time revision as I requested. Really happy with the service.</p>
+                <div class="testimonial-caption">
+                  <h5>Ankit Kumar</h5>
+                  <label>Coventry University</label>
+                </div>
+              </div>
+              <div class="testimonial-quote"><i class="flaticon-quotation"></i></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimonial">
+              <div class="testimonial-img">
+                <img class="img-fluid" src="images/thumbnail/01.png" alt="">
+              </div>
+              <div class="testimonial-content">
+                <p>You can trust them with your assignments. My report on Unilever got 78%. I highly recommend their service. Both the result and the price of the service were best for me.</p>
+                <div class="testimonial-caption">
+                  <h5>Priya Deshai</h5>
+                  <label>University of Warwick</label>
+                </div>
+              </div>
+              <div class="testimonial-quote"><i class="flaticon-quotation"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--testimonial end-->
+
+
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="section-title">
+          <h2 class="title">Frequently Asked Questions</h2> 
+        </div>
+        <div class="accordion" id="accordion">
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                What is academic writing?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse border-0 collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+              <div class="accordion-body">Academic writing is a specialized form of writing dedicated to scholarly and university study purposes. It incorporates a wide range of writing and subjects to follow for assignments. It is a structured content based on extensive academic research.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                What are academic writing services?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse border-0 collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+              <div class="accordion-body">Academic writing services incorporate essay writing, reports, case studies, dissertations, articles, reflective writing, and many more.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                What is the price for academic writing services for Word Creation?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse border-0 collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
+              <div class="accordion-body">The basic price of academic writing services and essay writing services is INR 3 per word. The price varies based on the complexity and technical requirements of the assignment.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Is academic writing important?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse border-0 collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
+              <div class="accordion-body">Yes. Academic writing is of utmost importance. It determines the score and quality of an academic career. Professional success depends on this to a large extent.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                What is an academic content writer?
+              </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse border-0 collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+              <div class="accordion-body">An academic content writer is an individual with knowledge of a specific subject. He/she develops various academic content and supports students and other academic individuals.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingSix">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                What is the best academic writing service?
+              </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse border-0 collapse" aria-labelledby="headingSix" data-bs-parent="#accordion">
+              <div class="accordion-body">The best academic writing service follows instructions and creates a personalized, well-researched formal piece of content. Word Creation provides the best academic writing services and essay writing services. Word Creation emphasizes creating value more than mere delivery of academic content, resulting in a high success rate.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingSeven">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                What are the 4 types of academic writing?
+              </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse border-0 collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
+              <div class="accordion-body">There are four types of academic writing: descriptive, critical, reflective, and persuasive. However, they are not necessarily completely distinguished from one another. A piece of academic content may incorporate multiple styles in one single content. Learn more.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingEight">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                Which is an example of academic writing?
+              </button>
+            </h2>
+            <div id="collapseEight" class="accordion-collapse border-0 collapse" aria-labelledby="headingEight" data-bs-parent="#accordion">
+              <div class="accordion-body">An essay is an example of academic writing.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingNine">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                How to write academic writing?
+              </button>
+            </h2>
+            <div id="collapseNine" class="accordion-collapse border-0 collapse" aria-labelledby="headingNine" data-bs-parent="#accordion">
+              <div class="accordion-body">Academic content must be written as per the guidelines and requirements specified. It must be objective, formal, well-structured, well-researched, and well-cited.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingTen">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                What are the 3 stages of academic writing?
+              </button>
+            </h2>
+            <div id="collapseTen" class="accordion-collapse border-0 collapse" aria-labelledby="headingTen" data-bs-parent="#accordion">
+              <div class="accordion-body">The task of academic writing can be divided into three parts. The pre-writing phase includes understanding the topic and requirements. Structuring and drafting is the second stage where the first draft is written. The final stage is revising and editing, where the content is proofread and edited before final submission.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingEleven">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                How much does Word Creation charge for its academic writing service and essay writing service?
+              </button>
+            </h2>
+            <div id="collapseEleven" class="accordion-collapse border-0 collapse" aria-labelledby="headingEleven" data-bs-parent="#accordion">
+              <div class="accordion-body">Word Creation charges INR 3 per word. However, the charge differs based on the complexity of the assignment and technical requirements.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingTwelve">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                Is there any discount available for the academic services in Word Creation?
+              </button>
+            </h2>
+            <div id="collapseTwelve" class="accordion-collapse border-0 collapse" aria-labelledby="headingTwelve" data-bs-parent="#accordion">
+              <div class="accordion-body">Yes. A special discount is available for the first order and for projects over 10,000 words.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingThirteen">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                How can I book academic writing services from Word Creation?
+              </button>
+            </h2>
+            <div id="collapseThirteen" class="accordion-collapse border-0 collapse" aria-labelledby="headingThirteen" data-bs-parent="#accordion">
+              <div class="accordion-body">Go to the website of Word Creation. Navigate to the service section, choose the desired service, and book it. Mention all specific requirements and the deadline for the assignment during the discussion.</div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingFourteen">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
+                How can you book academic writing services and essay writing services from Word Creation?
+              </button>
+            </h2>
+            <div id="collapseFourteen" class="accordion-collapse border-0 collapse" aria-labelledby="headingFourteen" data-bs-parent="#accordion">
+              <div class="accordion-body">
+                Your high-quality assignments are just a few steps away:
+                <ul style="margin-left: 20px;">
+                  <li>Request for a meeting/book our experts.</li>
+                  <li>Specify the requirements over a meeting/voice call.</li>
+                  <li>Specify the time of delivery.</li>
+                  <li>Choose payment method.</li>
+                  <li>Take delivery.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item mb-4">
+            <h2 class="accordion-header" id="headingFifteen">
+              <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen">
+                How do we deliver your content as the best academic writing service agency?
+              </button>
+            </h2>
+            <div id="collapseFifteen" class="accordion-collapse border-0 collapse" aria-labelledby="headingFifteen" data-bs-parent="#accordion">
+              <div class="accordion-body">
+                Your career matters to us. Thus, we deliver one client at a time. Our process of delivery is as follows:
+                <ul style="margin-left: 20px;">
+                  <li>Consideration of the specifications and personalized requirements.</li>
+                  <li>Allotment to our in-house subject matter experts.</li>
+                  <li>The first stage of quality checking.</li>
+                  <li>Plagiarism and AI checking.</li>
+                  <li>Delivery of first draft for review.</li>
+                  <li>Consideration of changes (if any).</li>
+                  <li>The second stage of quality checking.</li>
+                  <li>Final delivery.</li>
+                </ul>
+                Word Creation ensures authentic support at any time to support you to the final submission. Contact Word Creation for your assignment.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 </div>
 

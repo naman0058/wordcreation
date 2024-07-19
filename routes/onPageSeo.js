@@ -1,24 +1,24 @@
 const homePage = {
-    title : 'Word Creation | Home',
-    description:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
+    title : 'Excel in academics with Word Creation’s academic writing services',
+    description:'Book quality professional support for essays, reports, dissertations, and many more from the best academic writing services. Contact Word Creation: +917864047652',
     author:'https://www.wordcreation.in',
-    abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
+    abstract:'Book quality professional support for essays, reports, dissertations, and many more from the best academic writing services. Contact Word Creation: +917864047652',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
 
 
 const servicePage = {
-    title : 'Word Creation | Services',
-    description:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
+    title : 'Book your service in Word Creation and ensure excellence',
+    description:'Witness Your academic journey from panic to pleasure With Word Creation’s academic writing services ',
     author:'https://www.wordcreation.in',
-    abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
+    abstract:'Witness Your academic journey from panic to pleasure With Word Creation’s academic writing services ',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
@@ -33,7 +33,7 @@ const portfolioPage = {
     abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
@@ -47,7 +47,7 @@ const blogPage = {
     abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
@@ -62,7 +62,7 @@ const contactPage = {
     abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
@@ -75,7 +75,7 @@ const siguupPage = {
     abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
@@ -88,7 +88,7 @@ const loginPage = {
     abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
@@ -111,7 +111,7 @@ const privacyPage = {
     abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
@@ -124,7 +124,7 @@ const termsPage = {
     abstract:'Your one-stop solution for academic writing, CVs, market reports, and captivating infographics.',
     keywords:'wordcreation , acedemic writing , market report',
     url:'https://www.wordcreation.in',
-    favicon:'/images/black2.png'
+    favicon:'/images/white1.png'
 
    
 }
