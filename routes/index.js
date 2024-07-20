@@ -40,6 +40,11 @@ router.get('/terms-and-conditions',(req,res)=>{
 })
 
 
+router.get('/refund-policy',(req,res)=>{
+  res.render('refund',{msg:req.query.message,color:req.query.color,page:'terms',MetaTags : onPageSeo.refundPage})
+})
+
+
 
 router.post('/user/signup', async (req, res) => {
   try {

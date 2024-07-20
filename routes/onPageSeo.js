@@ -95,8 +95,8 @@ const loginPage = {
 
 
 const refundPage = {
-    title : 'Refund Policy | FileMakr',
-    description:`Filemakr's refund policy, ensuring satisfaction for final year students accessing source code and project reports. Our commitment to quality guarantees customer contentment`,
+    title : 'Word Creation | Refund Policy',
+    description:'Book quality professional support for essays, reports, dissertations, and many more from the best academic writing services. Contact Word Creation: +917864047652',
     author:'https://www.filemakr.com',
     abstract:`Filemakr's refund policy, ensuring satisfaction for final year students accessing source code and project reports. Our commitment to quality guarantees customer contentment`,
     keywords:'refund policy, Filemakr, final year students, source code, project report, academic resources, quality assurance',
