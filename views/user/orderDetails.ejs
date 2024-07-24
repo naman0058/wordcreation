@@ -377,8 +377,7 @@ function fillDropDown(id, data, label, selectedid = 0) {
 
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-
+  <script>
 
 function generateRandomOrderId() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -393,38 +392,35 @@ function generateRandomOrderId() {
     const param1 = 'your_contact_number'; // Replace with actual contact number if available
     const paymentorderid = generateRandomOrderId()
 
-    var options1 = {
-        "key": "rzp_live_2AYlv8GRAaT63p", // Enter the Key ID generated from the Dashboard
-        "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 100 refers to 100 paise or INR 1.
-        "currency": "INR",
-        "name": "Sportzkeeda",
-        "description": 'Payment for order ' + orderid,
-        "image": "", // Add the URL of your image if available
-        "order_id": paymentorderid, // The order ID generated from your server
-        "callback_url": "/user/dashboard/razorpay-response",
-        "redirect": true,
-        "modal": {
-            "ondismiss": function () {
-                window.location.href = 'https://www.filemakr.com/final-year-projects-source-code/failed_payment';
-            }
-        },
-        "prefill": {
-            "name": "Sportzkeeda",
-            "email": "info.sportzkeeda@gmail.com",
-            "contact": "+91" + param1
-        },
-        "theme": {
-            "color": "#507ec0"
-        }
-    };
-
-    var rzp1 = new Razorpay(options1);
+// alert(orderid)
+var options = {
+    "key": "rzp_test_c9ZSQoNdAZavNr", // Enter the Key ID generated from the Dashboard
+    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Acme Corp",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
     rzp1.open();
-    event.preventDefault();
-}
+    e.preventDefault();
 
-// Example usage:
-// payment('order_9A33XWu170gUtm', 'half');
+    }
+
+
 
   
-    </script>
+</script>
