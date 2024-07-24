@@ -168,10 +168,12 @@
 									
 										<div class="text-end" style="margin-top: 20px;">
                                             <% if(result[0].advance_payment == 0){ %>
-											<a class="badge badge-primary light border-0" href="/user/dashboard/payment?orderid=<%=result[0].orderid%>&type=half">Make Half Payment</a>
+											<!-- <a class="badge badge-primary light border-0" href="/user/dashboard/payment?orderid=<%=result[0].orderid%>&type=half">Make Half Payment</a> -->
+                       <a class="badge badge-primary light border-0" onclick="payment('<%=result[0].orderid%>' , 'half')">Make Half Payment</a>
                                             <% } %>
                                             <% if(result[0].remaining_payment != 0){ %>
-											<a class="badge badge-dark light border-0" href="/user/dashboard/payment?orderid=<%=result[0].orderid%>&type=full">Make Full Payment</a>
+                                              <a class="badge badge-dark light border-0" onclick="payment('<%=result[0].orderid%>' , 'full')" >Make Full Payment</a>
+                                              <!-- <a class="badge badge-dark light border-0" href="/user/dashboard/payment?orderid=<%=result[0].orderid%>&type=full">Make Full Payment</a> -->
 									<% } %>
                                         </div>
                                       
@@ -372,3 +374,57 @@ function fillDropDown(id, data, label, selectedid = 0) {
         }
     }
 </script>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+
+
+function generateRandomOrderId() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let orderId = 'order_';
+    for (let i = 0; i < 12; i++) {
+        orderId += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return orderId;
+}
+      
+      function payment(orderid, type) {
+    const param1 = 'your_contact_number'; // Replace with actual contact number if available
+    const paymentorderid = generateRandomOrderId()
+
+    var options1 = {
+        "key": "rzp_live_2AYlv8GRAaT63p", // Enter the Key ID generated from the Dashboard
+        "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 100 refers to 100 paise or INR 1.
+        "currency": "INR",
+        "name": "Sportzkeeda",
+        "description": 'Payment for order ' + orderid,
+        "image": "", // Add the URL of your image if available
+        "order_id": paymentorderid, // The order ID generated from your server
+        "callback_url": "/user/dashboard/razorpay-response",
+        "redirect": true,
+        "modal": {
+            "ondismiss": function () {
+                window.location.href = 'https://www.filemakr.com/final-year-projects-source-code/failed_payment';
+            }
+        },
+        "prefill": {
+            "name": "Sportzkeeda",
+            "email": "info.sportzkeeda@gmail.com",
+            "contact": "+91" + param1
+        },
+        "theme": {
+            "color": "#507ec0"
+        }
+    };
+
+    var rzp1 = new Razorpay(options1);
+    rzp1.open();
+    event.preventDefault();
+}
+
+// Example usage:
+// payment('order_9A33XWu170gUtm', 'half');
+
+  
+    </script>

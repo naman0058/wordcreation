@@ -141,7 +141,7 @@ router.get('/myprofile',verify.userAuthenticationToken, async (req, res) => {
 
 
 
-  router.get('/view/orders/details', verify.adminAuthenticationToken, async (req, res) => {
+  router.get('/view/orders/details', verify.userAuthenticationToken, async (req, res) => {
     try {
       let result =  await user.getOrderDetails(req.query.orderid);
       res.render(`${folder}/orderDetails`, { result,msg:req.query.msg,name:req.session.username,email:req.session.useremail });
@@ -150,6 +150,49 @@ router.get('/myprofile',verify.userAuthenticationToken, async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+
+
+  const Razorpay = require("razorpay");
+var instance = new Razorpay({
+    key_id: 'rzp_test_c9ZSQoNdAZavNr',
+    key_secret: 'M3PlBQetVxVHN6SX3PkqtooV',
+  });
+
+
+
+
+router.get('/sportzkeeda-create',(req,res)=>{
+  const url = `https://rzp_test_c9ZSQoNdAZavNr:M3PlBQetVxVHN6SX3PkqtooV@api.razorpay.com/v1/orders/`;
+    const data = {
+        amount:100,  // amount in the smallest currency unit
+      //amount:100,
+      currency: 'INR',
+        payment_capture: true
+    }
+    console.log('data',data)
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    fetch(url, options)
+        .then(res => res.json())
+        .then(
+            resu => res.send(resu)
+        );
+ })
+
+
+ router.post('/razorpay-response',(req,res)=>{
+  let body = req.body;
+  console.log('response recieve',body);
+ 
+res.json(body)
+ 
+ })
+ 
 
 
 
@@ -162,29 +205,63 @@ router.get('/myprofile',verify.userAuthenticationToken, async (req, res) => {
     let payable_amount;
     let status ;
 
-    if(type=='half'){ 
-payable_amount = original_amount/2;
-status = 'ongoing'
+
+    const url = 'https://api.razorpay.com/v1/orders/';
+    const data = {
+        amount: 100, // amount in the smallest currency unit
+        currency: 'INR',
+        payment_capture: true
+    };
+    console.log('data', data);
+
+    const username = 'rzp_test_c9ZSQoNdAZavNr';
+    const password = 'M3PlBQetVxVHN6SX3PkqtooV';
+    const basicAuth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64');
+
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': basicAuth
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        res.send(result);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send({ error: 'An error occurred while creating the order' });
     }
-    else {
-payable_amount = original_amount;
-
-if(done_assignment){
-  status = 'completed'
-}
-else{
-  status = 'ongoing'
-}
-
-    }
 
 
-    pool.query(`update orders set advance_payment = advance_payment+${payable_amount} , remaining_payment = remaining_payment-${payable_amount} , status = '${status}' where orderid = '${orderid}'`,(err,result)=>{
-      if(err) throw err;
-      else {
-        res.redirect(`/user/dashboard/view/orders/details?orderid=${orderid}`)
-      }
-    })
+
+
+//     if(type=='half'){ 
+// payable_amount = original_amount/2;
+// status = 'ongoing'
+//     }
+//     else {
+// payable_amount = original_amount;
+
+// if(done_assignment){
+//   status = 'completed'
+// }
+// else{
+//   status = 'ongoing'
+// }
+
+//     }
+
+
+//     pool.query(`update orders set advance_payment = advance_payment+${payable_amount} , remaining_payment = remaining_payment-${payable_amount} , status = '${status}' where orderid = '${orderid}'`,(err,result)=>{
+//       if(err) throw err;
+//       else {
+//         res.redirect(`/user/dashboard/view/orders/details?orderid=${orderid}`)
+//       }
+//     })
 
   })
 

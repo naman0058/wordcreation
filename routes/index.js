@@ -198,15 +198,15 @@ router.post('/contact',(req,res)=>{
 
 const Razorpay = require("razorpay");
 var instance = new Razorpay({
-    key_id: 'rzp_live_2AYlv8GRAaT63p',
-    key_secret: 'iIzpixX7YsDSUVPtAtbO5SMn',
+    key_id: 'rzp_test_c9ZSQoNdAZavNr',
+    key_secret: 'M3PlBQetVxVHN6SX3PkqtooV',
   });
 
 
 
 
 router.get('/sportzkeeda-create',(req,res)=>{
-  const url = `https://rzp_live_2AYlv8GRAaT63p:iIzpixX7YsDSUVPtAtbO5SMn@api.razorpay.com/v1/orders/`;
+  const url = `https://rzp_test_c9ZSQoNdAZavNr:M3PlBQetVxVHN6SX3PkqtooV@api.razorpay.com/v1/orders/`;
     const data = {
         amount:100,  // amount in the smallest currency unit
       //amount:100,
