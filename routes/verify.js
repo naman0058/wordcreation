@@ -7,8 +7,69 @@ var pool = require('./pool');
 
 const util = require('util');
 const queryAsync = util.promisify(pool.query).bind(pool);
+const nodemailer = require('nodemailer');
 
 
+// Create a transporter for sending emails
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'filemakr@gmail.com',
+      pass: 'mlgv tdpy tlnx sorq',
+    },
+  });
+
+
+
+  async function sendInviduallyMail(result,subject,message) {
+    try {
+      console.log('Data Recieve',result); 
+      // Fetch recipients from an API (replace 'api_url' with your API endpoint)
+      const recipients = result; // Assuming the API returns an array of recipients
+  
+      // Loop through recipients and send emails
+   
+  
+          // console.log('recipients',recipients)
+          try {
+            const mailOptions = {
+              from: 'support@gurudevdattamorale.in',
+              to: result.email,
+              subject: subject,
+              html: `
+              <html>
+                <head>
+                  <style>
+                    body {
+                      style="font-family: Georgia;
+                      color: black;
+                    }
+                    strong {
+                      font-weight: bold;
+                    }
+                  </style>
+                </head>
+                <body style="font-family: Georgia;color:'black'">
+                  ${message}
+                </body>
+              </html>
+            `,
+          
+            };
+  
+            // Send the email
+            const info = await transporter.sendMail(mailOptions);
+            console.log('information',info)
+            console.log(`Email sent to ${result.email}: ${info.response}`);
+          } catch (emailError) {
+            console.error(`Error sending email to ${result.email}:`, emailError);
+          }
+        
+      
+    } catch (fetchError) {
+      console.error('Error fetching recipients or sending emails:', fetchError);
+    }
+  }
 
 // function userAuthenticationToken(req,res,next){
 //     // const token = req.headers['authrorization'];
@@ -189,7 +250,8 @@ function generateOrderId() {
     getCurrentDate,
     getLastFinancialYearDates,
     generateId,
-    generateOrderId
+    generateOrderId,
+    sendInviduallyMail
   }
 
 

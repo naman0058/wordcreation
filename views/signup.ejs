@@ -1,19 +1,14 @@
 <%- include ('./includes/header.ejs') %>
 
-
-
-
 <!--header end-->
-
 
 <!--page title start-->
 
-
-
 <!--page title end-->
 
-
 <!--body content start-->
+
+
 
 <div class="page-content" style="margin-top: 100px;">
 
@@ -26,37 +21,43 @@
         <div class="login-form box-shadow white-bg p-4 p-md-5">
           <h2 class="title mb-5">Sign Up</h2>
           <p style="color: <%= color %>;font-weight:bold"><%= msg %></p>
-          <form method="post" action="/user/signup" onsubmit="validateForm()">
+          <form id="signupForm" method="post" action="/user/signup" onsubmit="return validateForm()">
             <div class="messages"></div>
             <div class="form-group">
               <input id="form_name" type="text" name="name" class="form-control" placeholder="Enter Name" required="required" data-error="Username is required.">
               <div class="help-block with-errors"></div>
             </div>
             <div class="form-group">
-                <input id="form_name" type="email" name="email" class="form-control" placeholder="Enter Email" required="required" data-error="Username is required.">
-                <div class="help-block with-errors"></div>
-              </div>
-              <div class="form-group">
-                <input id="form_name" type="number" name="number" id="number" class="form-control" placeholder="Enter Number" required="required" data-error="Username is required.">
-                <div class="help-block with-errors"></div>
-              </div>
-              <div class="form-group">
-                <input id="form_name" type="text" name="university_name" class="form-control" placeholder="Enter University Name" required="required" data-error="Username is required.">
-                <div class="help-block with-errors"></div>
-              </div>
-              <div class="form-group">
-                <input id="form_name" type="text" name="course_name" class="form-control" placeholder="Enter Course Name" required="required" data-error="Username is required.">
-                <div class="help-block with-errors"></div>
-              </div>
-            <div class="form-group">
-              <input id="form_password" type="password" name="password" class="form-control" placeholder="Password" required="required" data-error="password is required.">
+              <input id="form_email" type="email" name="email" class="form-control" placeholder="Enter Email" required="required" data-error="Email is required.">
+              <div class="help-block with-errors"></div>
+              <button type="button" class="btn btn-theme btn-sm" onclick="sendOTP()" style="float: right;margin-top: 20px;margin-bottom: 20px;">Send OTP</button>
+            </div>
+            <div id="loader" style="display: none;">Sending OTP...</div>
+            <div class="form-group" id="otpField" style="display:none;">
+              <input id="form_otp" type="text" name="otp" class="form-control" placeholder="Enter OTP" required="required" data-error="OTP is required.">
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group mt-4 mb-5">
-             
-            </div> <button type="submit"  class="btn btn-theme btn-lg"><span>Sign Up</span></button>
+            <div class="form-group">
+              <input id="form_number" type="number" name="number" class="form-control" placeholder="Enter Number" required="required" data-error="Number is required.">
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+              <input id="form_university" type="text" name="university_name" class="form-control" placeholder="Enter University Name" required="required" data-error="University Name is required.">
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+              <input id="form_course" type="text" name="course_name" class="form-control" placeholder="Enter Course Name" required="required" data-error="Course Name is required.">
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+              <input id="form_password" type="password" name="password" class="form-control" placeholder="Password" required="required" data-error="Password is required.">
+              <span id="togglePassword" class="eye-icon">👁️</span>
+              <div class="help-block with-errors"></div>
+          </div>
+            <div class="form-group mt-4 mb-5"></div>
+            <button id="signupButton" type="submit" class="btn btn-theme btn-lg" disabled><span>Sign Up</span></button>
           </form>
-     <p style="margin-top: 10px;">Already account ? <a href="/user/login">Login Here</a></p>
+          <p style="margin-top: 10px;">Already have an account? <a href="/user/login">Login Here</a></p>
         </div>
       </div>
     </div>
@@ -65,28 +66,69 @@
 
 <!--login end-->
 
-
 </div>
 
 <!--body content end--> 
 
 <%- include ('./includes/footer.ejs') %>
 
-
 <script>
-    function validateForm() {
+    let generatedOTP;
+
+    async function sendOTP() {
+        const email = document.getElementById('form_email').value;
+        if (!email) {
+            alert("Please enter your email first.");
+            return;
+        }
+
+        // Show loader
+        document.getElementById('loader').style.display = 'block';
+
+        // Generate a 6-digit OTP
+        generatedOTP = Math.floor(100000 + Math.random() * 900000);
+
+        // Send OTP to the email
+        const response = await fetch('/send-otp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, otp: generatedOTP })
+        });
+
+        const result = await response.json();
         
-        var mobileNumber = document.getElementById("avb").value;
-        var mobileNumberPattern = /^\d{10}$/;
-        alert(mobileNumber)
-        if (!mobileNumberPattern.test(mobileNumber)) {
-            alert("Please enter a valid 10-digit mobile number.");
-            // return false;
+        // Hide loader
+        document.getElementById('loader').style.display = 'none';
+
+        if (result.success) {
+            alert("OTP sent to your email.");
+            document.getElementById('otpField').style.display = 'block';
+        } else {
+            alert("Failed to send OTP. Please try again.");
         }
-        else{
-            // return ture
-        }
-        // Proceed with form submission or any other action here
-        // document.forms["myForm"].submit();
     }
+
+    function validateForm() {
+        const userOTP = document.getElementById('form_otp').value;
+        if (userOTP != generatedOTP) {
+            alert("OTP does not match.");
+            return false;
+        }
+        return true;
+    }
+
+    // Enable the Sign Up button when the OTP is entered
+    document.getElementById('form_otp').addEventListener('input', function() {
+        const userOTP = document.getElementById('form_otp').value;
+        const signupButton = document.getElementById('signupButton');
+        if (userOTP.length === 6) {
+            signupButton.disabled = false;
+        } else {
+            signupButton.disabled = true;
+        }
+    });
 </script>
+
+

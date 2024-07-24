@@ -5,7 +5,34 @@ const util = require('util');
 const queryAsync = util.promisify(pool.query).bind(pool);
 var verify = require('./verify');
 var onPageSeo = require('./onPageSeo');
+const nodemailer = require('nodemailer');
 
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'filemakr@gmail.com',
+    pass: 'mlgv tdpy tlnx sorq',
+  },
+});
+
+router.post('/send-otp', async (req, res) => {
+  const { email, otp } = req.body;
+
+  const mailOptions = {
+      from: 'filemakr@gmail.com',
+      to: email,
+      subject: 'Your OTP for Verification',
+      html: `<p>Your OTP for verification is: <strong>${otp}</strong></p>`
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      res.json({ success: true });
+  } catch (error) {
+      console.error('Error sending email:', error);
+      res.json({ success: false });
+  }
+});
 
 
 /* GET home page. */
@@ -49,6 +76,8 @@ router.get('/refund-policy',(req,res)=>{
 router.post('/user/signup', async (req, res) => {
   try {
       let body = req.body;
+      let subject = `Welcome Subject`
+      let message = `Welcome Message`
 
       // Check if email or number already exists
       const existingRecord = await queryAsync('SELECT id FROM users WHERE email = ? OR number = ?', [body.email, body.number]);
@@ -65,6 +94,7 @@ router.post('/user/signup', async (req, res) => {
       const insertResult = await queryAsync('INSERT INTO users SET ?', req.body);
 
       if (insertResult.affectedRows > 0) {
+          await verify.sendInviduallyMail(req.body,subject,message)
           return res.redirect(`/user/signup?message=${encodeURIComponent('Signup Successfully')}&color=${encodeURIComponent('green')}`);
       } else {
           return res.redirect(`/user/signup?message=${encodeURIComponent('Error Occurred Please Try Again Later')}&color=${encodeURIComponent('red')}`);

@@ -15,6 +15,21 @@
 
 <!--body content start-->
 
+<style>
+	.form-group {
+	  position: relative;
+  }
+  
+  .eye-icon {
+	  position: absolute;
+	  top: 50%;
+	  right: 10px;
+	  transform: translateY(-50%);
+	  cursor: pointer;
+  }
+  
+  </style>
+
 <div class="page-content" style="margin-top: 100px;">
 
 <!--login start-->
@@ -34,9 +49,10 @@
               <div class="help-block with-errors"></div>
             </div>
             <div class="form-group">
-              <input id="form_password" type="password" name="password" class="form-control" placeholder="Password" required="required" data-error="password is required.">
+              <input id="form_password" type="password" name="password" class="form-control" placeholder="Password" required="required" data-error="Password is required.">
+              <span id="togglePassword" class="eye-icon">👁️</span>
               <div class="help-block with-errors"></div>
-            </div>
+          </div>
             <div class="form-group mt-4 mb-5">
               <div class="remember-checkbox d-sm-flex align-items-center justify-content-between">
                 <div class="form-check">
@@ -60,3 +76,22 @@
 <!--body content end--> 
 
 <%- include ('./includes/footer.ejs') %>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const passwordField = document.getElementById('form_password');
+    const togglePassword = document.getElementById('togglePassword');
+
+    togglePassword.addEventListener('click', function () {
+        // Toggle the type attribute using getAttribute() method
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        
+        // Toggle the eye icon
+        this.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+});
+
+</script>
+
