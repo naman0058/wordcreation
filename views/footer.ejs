@@ -66,3 +66,21 @@
 
 <!-- Mirrored from w3crm.dexignzone.com/xhtml/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 16:39:47 GMT -->
 </html>
+
+
+<script>
+    $('#reset').click(function() {
+        // Get the current URL
+        let currentUrl = window.location.href;
+        
+        // Remove query parameters
+        let newUrl = currentUrl.split('?')[0];
+        
+        // Show the new URL (without reloading the page)
+        window.history.pushState({}, document.title, newUrl);
+
+        // Optionally, you can alert the new URL or log it to the console
+        console.log(newUrl);
+        window.location.href = newUrl;
+    });
+</script>

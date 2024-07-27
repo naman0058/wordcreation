@@ -118,6 +118,8 @@ pool.query(`select * from users where email ='${body.email}' and password = '${b
        req.session.userid = result[0].id
        req.session.useremail = result[0].email
        req.session.username = result[0].name
+       req.session.usernumber = result[0].number
+
        res.redirect('/user/dashboard/new/assignment')
       }
    else {

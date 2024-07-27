@@ -113,17 +113,19 @@ router.get('/myprofile',verify.userAuthenticationToken, async (req, res) => {
   
 
   router.get('/transaction', (req, res) => {
-    const { username, usernumber, txnid, from_date, to_date, uniqueid } = req.query;
+    const { username, usernumber, orderid, from_date, to_date, uniqueid } = req.query;
   
     let query = `SELECT pr.*, u.name as username, u.number as usernumber, u.unique_id as uniqueid
                  FROM payment_response pr
                  JOIN users u ON pr.userid = u.id
                  WHERE 1`;
+
+                 query += ` AND u.id = '${req.session.userid}'`;
   
     if (username) query += ` AND u.name = '${username}'`;
     if (usernumber) query += ` AND u.number = '${usernumber}'`;
     if (uniqueid) query += ` AND u.unique_id = '${uniqueid}'`;
-    if (txnid) query += ` AND pr.txnid = '${txnid}'`;
+    if (orderid) query += ` AND pr.orderid = '${orderid}'`;
     if (from_date && !to_date) query += ` AND DATE(pr.created_at) = '${from_date}'`;
     if (from_date && to_date) query += ` AND pr.created_at BETWEEN '${from_date}' AND '${to_date}'`;
   
@@ -144,7 +146,7 @@ router.get('/myprofile',verify.userAuthenticationToken, async (req, res) => {
   router.get('/view/orders/details', verify.userAuthenticationToken, async (req, res) => {
     try {
       let result =  await user.getOrderDetails(req.query.orderid);
-      res.render(`${folder}/orderDetails`, { result,msg:req.query.msg,name:req.session.username,email:req.session.useremail });
+      res.render(`${folder}/orderDetails`, { result,msg:req.query.msg,name:req.session.username,email:req.session.useremail,number:req.session.usernumber });
     } catch (error) {
       console.error('Error in route:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -160,36 +162,88 @@ var instance = new Razorpay({
 
 
 
+  function generatereceipt() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let receipt = 'order_rcptid_';
+    for (let i = 0; i < 12; i++) {
+      receipt += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return receipt;
+}
 
-router.get('/sportzkeeda-create',(req,res)=>{
-  const url = `https://rzp_test_c9ZSQoNdAZavNr:M3PlBQetVxVHN6SX3PkqtooV@api.razorpay.com/v1/orders/`;
-    const data = {
-        amount:100,  // amount in the smallest currency unit
-      //amount:100,
-      currency: 'INR',
-        payment_capture: true
+router.get('/generate-order',async(req,res)=>{
+  let type = req.query.type;
+  let result =  await user.getOrderDetails(req.query.orderid);
+  let original_amount = result[0].remaining_payment;
+  let payable_amount;
+
+
+      if(type=='half'){ 
+payable_amount = original_amount/2;
     }
-    console.log('data',data)
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-    fetch(url, options)
-        .then(res => res.json())
-        .then(
-            resu => res.send(resu)
-        );
+    else {
+payable_amount = original_amount;
+}
+
+
+var options = {
+  amount: payable_amount*100,  // amount in the smallest currency unit
+  // amount: 100,  // amount in the smallest currency unit
+  currency: "INR",
+  receipt: generatereceipt()
+};
+instance.orders.create(options, function(err, order) {
+  console.log(order);
+  req.session.payable_amount = order.amount/100;
+  req.session.generateOrderId = order.id
+  res.json(order)
+});
  })
 
 
+ const crypto = require('crypto');
+
+ function hmac_sha256(data, secret) {
+  return crypto.createHmac('sha256', secret).update(data).digest('hex');
+}
+
  router.post('/razorpay-response',(req,res)=>{
   let body = req.body;
-  console.log('response recieve',body);
+
+  if(body.razorpay_payment_id && body.razorpay_order_id && body.razorpay_signature){
+    const data = req.session.generateOrderId + '|' + body.razorpay_payment_id;
+    let generated_signature = hmac_sha256(data, 'M3PlBQetVxVHN6SX3PkqtooV');
+    if (generated_signature == body.razorpay_signature) {
+      body.orderid = req.query.orderid;
+      body.type = req.query.type
+      body.amount = req.session.payable_amount;
+      body.generateOrderId = req.session.generateOrderId;
+      body.userid = req.session.userid
+      body.created_at = verify.getCurrentDate()
+//  res.json({body:req.body,query:req.query})
+pool.query(`insert into payment_response set ?`,body,(err,result)=>{
+  if(err) throw err;
+  else {
+    pool.query(`update orders set advance_payment = advance_payment+${body.amount} , remaining_payment = remaining_payment-${body.amount} , status = 'ongoing' where orderid = '${body.orderid}'`,(err,result)=>{
+      if(err) throw err;
+      else {
+        res.redirect(`/user/dashboard/view/orders/details?orderid=${body.orderid}`)
+      }
+    })
+
+  }
+})
+    }
+    else{
+      res.json({msg:'Unauthroized Payment'})
+    }
+    
+
+  }
+  else{
+    res.json({msg:'Error Occured'})
+  }
  
-res.json(body)
  
  })
  
@@ -206,64 +260,38 @@ res.json(body)
     let status ;
 
 
-    const url = 'https://api.razorpay.com/v1/orders/';
-    const data = {
-        amount: 100, // amount in the smallest currency unit
-        currency: 'INR',
-        payment_capture: true
-    };
-    console.log('data', data);
+  
 
-    const username = 'rzp_test_c9ZSQoNdAZavNr';
-    const password = 'M3PlBQetVxVHN6SX3PkqtooV';
-    const basicAuth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64');
 
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': basicAuth
-        }
-    };
+    if(type=='half'){ 
+payable_amount = original_amount/2;
+status = 'ongoing'
+    }
+    else {
+payable_amount = original_amount;
 
-    try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        res.send(result);
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send({ error: 'An error occurred while creating the order' });
+if(done_assignment){
+  status = 'completed'
+}
+else{
+  status = 'ongoing'
+}
+
     }
 
 
-
-
-//     if(type=='half'){ 
-// payable_amount = original_amount/2;
-// status = 'ongoing'
-//     }
-//     else {
-// payable_amount = original_amount;
-
-// if(done_assignment){
-//   status = 'completed'
-// }
-// else{
-//   status = 'ongoing'
-// }
-
-//     }
-
-
-//     pool.query(`update orders set advance_payment = advance_payment+${payable_amount} , remaining_payment = remaining_payment-${payable_amount} , status = '${status}' where orderid = '${orderid}'`,(err,result)=>{
-//       if(err) throw err;
-//       else {
-//         res.redirect(`/user/dashboard/view/orders/details?orderid=${orderid}`)
-//       }
-//     })
+    pool.query(`update orders set advance_payment = advance_payment+${payable_amount} , remaining_payment = remaining_payment-${payable_amount} , status = '${status}' where orderid = '${orderid}'`,(err,result)=>{
+      if(err) throw err;
+      else {
+        res.redirect(`/user/dashboard/view/orders/details?orderid=${orderid}`)
+      }
+    })
 
   })
+
+
+
+  
 
 
 router.get('/logout',(req,res)=>{

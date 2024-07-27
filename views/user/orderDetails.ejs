@@ -189,6 +189,13 @@
 				</div>
 			</div>
 		</div>
+
+
+    <input type="hidden" id="name" value="<%=name%>">
+    <input type="hidden" id="email" value="<%=email%>">
+    <input type="hidden" id="number" value="<%=number%>">
+
+
 		
         <!--**********************************
             Content body end
@@ -376,51 +383,60 @@ function fillDropDown(id, data, label, selectedid = 0) {
 </script>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script>
 
-function generateRandomOrderId() {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let orderId = 'order_';
-    for (let i = 0; i < 12; i++) {
-        orderId += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return orderId;
+<script>
+function generateOrderId(orderid, type) {
+    return new Promise((resolve, reject) => {
+        $.getJSON('/user/dashboard/generate-order', {orderid, type}, data => {
+            console.log('data receive', data);
+            resolve(data);
+        }).fail(error => {
+            reject(error);
+        });
+    });
 }
-      
-      function payment(orderid, type) {
-    const param1 = 'your_contact_number'; // Replace with actual contact number if available
-    const paymentorderid = generateRandomOrderId()
 
-// alert(orderid)
-var options = {
-    "key": "rzp_test_c9ZSQoNdAZavNr", // Enter the Key ID generated from the Dashboard
-    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    "currency": "INR",
-    "name": "Acme Corp",
-    "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
-    "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
-    "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9000090000"
-    },
-    "notes": {
-        "address": "Razorpay Corporate Office"
-    },
-    "theme": {
-        "color": "#3399cc"
+async function payment(orderid, type) {
+    try {
+        const generateOrderResponse = await generateOrderId(orderid, type);
+        console.log('generateOrderResponse data receive', generateOrderResponse);
+
+        let name = $('#name').val()
+        let number = $('#number').val()
+        let email = $('#email').val()
+
+
+
+        // Proceed with the Razorpay options
+        var options = {
+            "key": "rzp_test_c9ZSQoNdAZavNr", // Enter the Key ID generated from the Dashboard
+            "amount": generateOrderResponse.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Word Creation",
+            "description": "Test Transaction",
+            "image": "/images/white1.png",
+            "order_id": generateOrderResponse.id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "callback_url": `/user/dashboard/razorpay-response?orderid=${orderid}&type=${type}`,
+            "prefill": {
+                "name": name,
+                "email": email,
+                "contact": number
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+        event.preventDefault();
+    } catch (error) {
+        console.error('Error generating order', error);
     }
-};
-var rzp1 = new Razorpay(options);
-    rzp1.open();
-    e.preventDefault();
-
-    }
-
-
-
-  
+}
 </script>

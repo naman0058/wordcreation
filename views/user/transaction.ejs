@@ -32,15 +32,15 @@
                     <div class="card">
                         <div class="card-body p-0" style="margin: 20px;">
                             <h4 class="heading mb-0"> Filters</h4>
-                            <form action="/admin/dashboard/reports/transaction" method="get">                            <div class="row" style="margin-top: 20px;">
+                            <form action="/user/dashboard/transaction" method="get">                            <div class="row" style="margin-top: 20px;">
                                 
                                
                             </div>
 
                             <div class="row" style="margin-top: 20px;">
                                 <div class="col-lg-4">
-                                    <label  class="form-label">Enter Txn. ID </label>
-                                    <input type="text" name="txnid" class="form-control" placeholder="Enter TXN. ID" value="<%=value.txnid%>">
+                                    <label  class="form-label">Enter Order ID </label>
+                                    <input type="text" name="orderid" class="form-control" placeholder="Enter Order ID" value="<%=value.orderid%>">
 
                                 </div>
                                 <div class="col-lg-4">
@@ -90,6 +90,7 @@
                                             <th>User Name</th>
                                             <th>Unique ID</th>
                                             <th>User Number</th>
+                                            <th>Order ID</th>
                                             <th>Txn ID</th>
                                             <th>Amount</th>
                                             <th>Date</th>
@@ -119,7 +120,12 @@
 
 
                                                     <td><span>
-                                                        <%=result[i].txnid%>
+                                                        <%=result[i].orderid%>
+                                                    </span></td>
+
+
+                                                    <td><span>
+                                                        <%=result[i].razorpay_order_id.toUpperCase()%>
                                                     </span></td>
 
                                                     <td><span style="color:<%=result[i].color%>;font-weight:bold">
@@ -204,3 +210,21 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
    
 
     </script>
+
+
+<script>
+    $('#reset').click(function() {
+        // Get the current URL
+        let currentUrl = window.location.href;
+        
+        // Remove query parameters
+        let newUrl = currentUrl.split('?')[0];
+        
+        // Show the new URL (without reloading the page)
+        window.history.pushState({}, document.title, newUrl);
+
+        // Optionally, you can alert the new URL or log it to the console
+        console.log(newUrl);
+        window.location.href = newUrl;
+    });
+</script>

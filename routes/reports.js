@@ -13,7 +13,7 @@ var databasetable = 'users'
 
 
 router.get('/transaction', (req, res) => {
-    const { username, usernumber, txnid, from_date, to_date, uniqueid } = req.query;
+    const { username, usernumber, orderid, from_date, to_date, uniqueid } = req.query;
   
     let query = `SELECT pr.*, u.name as username, u.number as usernumber, u.unique_id as uniqueid
                  FROM payment_response pr
@@ -23,7 +23,7 @@ router.get('/transaction', (req, res) => {
     if (username) query += ` AND u.name = '${username}'`;
     if (usernumber) query += ` AND u.number = '${usernumber}'`;
     if (uniqueid) query += ` AND u.unique_id = '${uniqueid}'`;
-    if (txnid) query += ` AND pr.txnid = '${txnid}'`;
+    if (orderid) query += ` AND pr.orderid = '${orderid}'`;
     if (from_date && !to_date) query += ` AND DATE(pr.created_at) = '${from_date}'`;
     if (from_date && to_date) query += ` AND pr.created_at BETWEEN '${from_date}' AND '${to_date}'`;
   

@@ -208,6 +208,14 @@ router.post('/update/orders',verify.adminAuthenticationToken,upload.single('done
 
 
 
+router.get('/order/update',verify.adminAuthenticationToken,(req,res)=>{
+  pool.query(`update orders set status = '${req.query.status}' where orderid = '${req.query.orderid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.redirect('/admin/dashboard/users/view/orders?status=ongoing')
+  })
+})
+
+
 
 
 
