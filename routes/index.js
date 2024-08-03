@@ -35,6 +35,43 @@ router.post('/send-otp', async (req, res) => {
 });
 
 
+
+
+router.post('/user/forgot-password', async (req, res) => {
+
+  pool.query(`select * from users where email = '${req.body.email}'`,async(err,result)=>{
+    if(err) throw err;
+    else if(result.length>0){
+  let newPassword = verify.generatePassword(12);
+  pool.query(`update users set password = '${newPassword}' where email = '${req.body.email}'`,async(err,result)=>{
+    if(err) throw err;
+    else {
+
+      const subject = 'Password Reset Request';
+      const message = `
+        <h1>Password Reset</h1>
+        <p>Dear User,</p>
+        <p>Your password has been reset. Please use the following password to log in:</p>
+        <p><strong>${newPassword}</strong></p>
+        <p>Make sure to change your password after logging in.</p>
+        <br>
+        <p>Regards,</p>
+        <p>Your Company Name</p>
+      `;
+      await verify.sendUserMail(req.body.email,subject,message);
+      res.redirect(`/user/forgot-password?message=${encodeURIComponent('Password sent successfully to your email.')}`)
+    }
+  })
+
+    }
+    else{
+      res.redirect(`/user/forgot-password?message=${encodeURIComponent('Email ID Not Exists')}`)
+    }
+  })
+
+ });
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var query = `select * from manage_filters where filters = 'services' and status = true order by id desc;`
@@ -54,6 +91,11 @@ router.get('/user/signup',(req,res)=>{
 
 router.get('/user/login',(req,res)=>{
   res.render('userlogin',{msg:req.query.message,color:req.query.color,page:'login',MetaTags : onPageSeo.loginPage})
+})
+
+
+router.get('/user/forgot-password',(req,res)=>{
+  res.render('forgot',{msg:req.query.message,color:req.query.color,page:'login',MetaTags : onPageSeo.loginPage})
 })
 
 
@@ -243,5 +285,9 @@ router.get('/sportzkeeda-create',(req,res)=>{
     }
   })
  })
+
+
+
+ 
 
 module.exports = router;

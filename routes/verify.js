@@ -33,7 +33,7 @@ const transporter = nodemailer.createTransport({
           // console.log('recipients',recipients)
           try {
             const mailOptions = {
-              from: 'support@gurudevdattamorale.in',
+              from: 'filemakr@gmail.comn',
               to: result.email,
               subject: subject,
               html: `
@@ -63,6 +63,100 @@ const transporter = nodemailer.createTransport({
             console.log(`Email sent to ${result.email}: ${info.response}`);
           } catch (emailError) {
             console.error(`Error sending email to ${result.email}:`, emailError);
+          }
+        
+      
+    } catch (fetchError) {
+      console.error('Error fetching recipients or sending emails:', fetchError);
+    }
+  }
+
+
+
+
+  async function sendPromotionalMail(result, subject, message) {
+    try {
+      console.log('Data Received', result);
+      
+      const mailOptions = {
+        from: 'filemakr@gmail.com',
+        to: result.email,
+        subject: subject,
+        html: `
+          <html>
+            <head>
+              <style>
+                body {
+                  font-family: Georgia;
+                  color: black;
+                }
+                strong {
+                  font-weight: bold;
+                }
+              </style>
+            </head>
+            <body style="font-family: Georgia; color: black;">
+              ${message}
+            </body>
+          </html>
+        `,
+      };
+  
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Information', info);
+      console.log(`Email sent to ${result.email}: ${info.response}`);
+    } catch (emailError) {
+      console.error(`Error sending email to ${result.email}:`, emailError);
+    }
+  }
+
+
+
+  async function sendUserMail(result,subject,message) {
+    try {
+      console.log('Data Recieve',result); 
+      console.log('Data Recieve',subject); 
+      console.log('Data Recieve',message); 
+
+      // Fetch recipients from an API (replace 'api_url' with your API endpoint)
+      const recipients = result; // Assuming the API returns an array of recipients
+  
+      // Loop through recipients and send emails
+   
+  
+          // console.log('recipients',recipients)
+          try {
+            const mailOptions = {
+              from: 'noreply@filemakr.com',
+              to: result,
+              subject: subject,
+              html: `
+              <html>
+                <head>
+                  <style>
+                    body {
+                      style="font-family: Georgia;
+                      color: black;
+                    }
+                    strong {
+                      font-weight: bold;
+                    }
+                  </style>
+                </head>
+                <body style="font-family: Georgia;color:'black'">
+                  ${message}
+                </body>
+              </html>
+            `,
+          
+            };
+  
+            // Send the email
+            const info = await transporter.sendMail(mailOptions);
+            console.log('information',info)
+            console.log(`Email sent to ${result}: ${info.response}`);
+          } catch (emailError) {
+            console.error(`Error sending email to ${result}:`, emailError);
           }
         
       
@@ -238,6 +332,16 @@ function generateOrderId() {
 
 // console.log('Last Financial Year',getCurrentYearDates())
 
+
+function generatePassword(length) {
+  const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+  return password;
+};
   
 
   module.exports = {
@@ -251,7 +355,10 @@ function generateOrderId() {
     getLastFinancialYearDates,
     generateId,
     generateOrderId,
-    sendInviduallyMail
+    sendInviduallyMail,
+    sendUserMail,
+    generatePassword,
+    sendPromotionalMail
   }
 
 

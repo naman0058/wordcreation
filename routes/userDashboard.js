@@ -43,6 +43,9 @@ router.post('/assignment/insert',verify.userAuthenticationToken, upload.fields([
     const { body, params, files } = req;
     const { name } = params;
 
+
+   
+
     try {
         body.created_at = verify.getCurrentDate();
         body.status = 'pending';
@@ -55,7 +58,23 @@ router.post('/assignment/insert',verify.userAuthenticationToken, upload.fields([
 
         console.log('body',body)
 
+
+        let subject = `Your Order Has Been Created`;
+        let message = `<p>Hi ${req.session.username},</p>
+    
+    <p>Your order ${body.orderid} has been successfully created!</p>
+    
+    
+   <p> You will receive another email once your order is processed. </p>
+    
+   <p> Thank you for choosing WordCreation! </p>
+    
+   <p> Best regards </p>
+    `;
+
         await queryAsync(`INSERT INTO orders SET ?`, body);
+        await verify.sendUserMail(req.session.useremail,subject,message)
+
         res.redirect(`/user/dashboard/new/assignment?message=${encodeURIComponent('Saved Successfully')}`);
     } catch (err) {
         console.error(err);
@@ -98,14 +117,25 @@ router.get('/myprofile',verify.userAuthenticationToken, async (req, res) => {
 
 
 
-   router.post('/update',verify.userAuthenticationToken, (req, res) => {
+   router.post('/update',verify.userAuthenticationToken, async(req, res) => {
     console.log('req.body', req.body);
-    pool.query('UPDATE users SET ? WHERE id = ?', [req.body, req.body.id], (err, result) => {
+    pool.query('UPDATE users SET ? WHERE id = ?', [req.body, req.body.id], async(err, result) => {
         if (err) {
             console.error('Error updating data:', err);
             return res.status(500).json({ msg: 'error' });
         }
+        else{
+          let subject = `Your Account Information Has Been Updated`
+          let message = `<p>Hi ${req.body.name},</p>
+
+<p>We wanted to let you know that your account information has been successfully updated. If you made these changes, no further action is needed.</p>
+
+<p>If you did not make these changes, please contact us immediately.</p>
+
+<p>Best regards </p>`
+          await verify.sendUserMail(req.body.email,subject,message)
         return res.redirect('/user/dashboard/myprofile')
+        }
 
     });
   });
@@ -207,7 +237,7 @@ instance.orders.create(options, function(err, order) {
   return crypto.createHmac('sha256', secret).update(data).digest('hex');
 }
 
- router.post('/razorpay-response',(req,res)=>{
+ router.post('/razorpay-response',async(req,res)=>{
   let body = req.body;
 
   if(body.razorpay_payment_id && body.razorpay_order_id && body.razorpay_signature){
@@ -224,9 +254,26 @@ instance.orders.create(options, function(err, order) {
 pool.query(`insert into payment_response set ?`,body,(err,result)=>{
   if(err) throw err;
   else {
-    pool.query(`update orders set advance_payment = advance_payment+${body.amount} , remaining_payment = remaining_payment-${body.amount} , status = 'ongoing' where orderid = '${body.orderid}'`,(err,result)=>{
+    pool.query(`update orders set advance_payment = advance_payment+${body.amount} , remaining_payment = remaining_payment-${body.amount} , status = 'ongoing' where orderid = '${body.orderid}'`,async(err,result)=>{
       if(err) throw err;
       else {
+        let subject = `Payment Received for Order ${req.query.orderid}`
+        let message = `Hi ${req.session.username},
+
+Thank you for your payment!
+
+**Order Details:**
+- **Order Number:** ${req.query.orderid}
+- **Amount Paid:** ${req.session.payable_amount}
+- **Payment Date:** ${verify.getCurrentDate()}
+
+We are processing your order and will keep you updated on its status.
+
+Best regards,
+`
+        await verify.sendUserMail(req.session.useremail,subject,message)
+        await verify.sendUserMail('contact@wordcreation.in',subject,message)
+
         res.redirect(`/user/dashboard/view/orders/details?orderid=${body.orderid}`)
       }
     })

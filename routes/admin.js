@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('./pool');
+
 const util = require('util');
 const queryAsync = util.promisify(pool.query).bind(pool);
 var verify = require('./verify');
 const e = require('express');
 const upload = require('./multer');
+
 
 
 
@@ -828,6 +830,36 @@ router.post('/dashboard/blog/update', verify.adminAuthenticationToken, upload.si
 
  router.get('/dashboard/delete/blogs', (req, res) => pool.query(`delete from blogs where id = ${req.query.id}`, (err, result) => err ? console.log(err) : res.redirect('/admin/dashboard/list/blogs/all')))
 
+
+
+
+ router.get('/dashboard/promotion',(req,res)=>{
+  res.render(`manage/promotion`,{msg:req.query.message})
+ })
+
+
+
+
+ router.post('/dashboard/promotion', async (req, res) => {
+
+  let body = req.body;
+
+  console.log(body)
+  
+const { default: pLimit } = await import('p-limit');
+const limit = pLimit(100); 
+
+  pool.query(`SELECT * FROM users`, async (err, result) => {
+    if (err) throw err;
+
+    const tasks = result.map(user => 
+      limit(() => verify.sendPromotionalMail(user, req.body.subject, req.body.message))
+    );
+
+    await Promise.all(tasks);
+    res.redirect(`/admin/dashboard/promotion?message=${encodeURIComponent('Promotional Mail Sent Successfully.')}`);
+  });
+});
 
 
 module.exports = router;
