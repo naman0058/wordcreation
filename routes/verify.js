@@ -11,13 +11,28 @@ const nodemailer = require('nodemailer');
 
 
 // Create a transporter for sending emails
+// const transporter = nodemailer.createTransport({
+//     service: 'Gmail',
+//     auth: {
+//       user: 'filemakr@gmail.com',
+//       pass: 'mlgv tdpy tlnx sorq',
+//     },
+//   });
+
+
+
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'filemakr@gmail.com',
-      pass: 'mlgv tdpy tlnx sorq',
-    },
-  });
+  host: 'smtp.hostinger.com',
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: 'support@wordcreation.in', // your GoDaddy email address
+    pass: 'Swaraj@#Word#890',    // your GoDaddy email password
+  },
+  tls: {
+    rejectUnauthorized: false // Allow self-signed certificates
+  }
+});
 
 
 
@@ -33,7 +48,7 @@ const transporter = nodemailer.createTransport({
           // console.log('recipients',recipients)
           try {
             const mailOptions = {
-              from: 'filemakr@gmail.comn',
+              from: 'support@wordcreation.inn',
               to: result.email,
               subject: subject,
               html: `
@@ -79,7 +94,7 @@ const transporter = nodemailer.createTransport({
       console.log('Data Received', result);
       
       const mailOptions = {
-        from: 'filemakr@gmail.com',
+        from: 'support@wordcreation.in',
         to: result.email,
         subject: subject,
         html: `
