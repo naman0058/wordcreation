@@ -142,7 +142,7 @@ const transporter = nodemailer.createTransport({
           // console.log('recipients',recipients)
           try {
             const mailOptions = {
-              from: 'noreply@filemakr.com',
+              from: 'support@wordcreation.in',
               to: result,
               subject: subject,
               html: `

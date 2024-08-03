@@ -8,18 +8,23 @@ var onPageSeo = require('./onPageSeo');
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: 'Gmail',
+  host: 'smtp.hostinger.com',
+  port: 465,
+  secure: true, // true for 465, false for other ports
   auth: {
-    user: 'filemakr@gmail.com',
-    pass: 'mlgv tdpy tlnx sorq',
+    user: 'support@wordcreation.in', // your GoDaddy email address
+    pass: 'Swaraj@#Word#890',    // your GoDaddy email password
   },
+  tls: {
+    rejectUnauthorized: false // Allow self-signed certificates
+  }
 });
 
 router.post('/send-otp', async (req, res) => {
   const { email, otp } = req.body;
 
   const mailOptions = {
-      from: 'filemakr@gmail.com',
+      from: 'support@wordcreation.in',
       to: email,
       subject: 'Your OTP for Verification',
       html: `<p>Your OTP for verification is: <strong>${otp}</strong></p>`
