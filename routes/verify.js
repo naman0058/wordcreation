@@ -48,7 +48,7 @@ const transporter = nodemailer.createTransport({
           // console.log('recipients',recipients)
           try {
             const mailOptions = {
-              from: 'support@wordcreation.inn',
+              from: 'support@wordcreation.in',
               to: result.email,
               subject: subject,
               html: `

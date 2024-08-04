@@ -26,12 +26,22 @@ router.post('/send-otp', async (req, res) => {
   const mailOptions = {
       from: 'support@wordcreation.in',
       to: email,
-      subject: 'Your OTP for Verification',
-      html: `<p>Your OTP for verification is: <strong>${otp}</strong></p>`
+      subject: 'Verify Your Email Address - WordCreation',
+      html: `
+        <p>Dear User,</p>
+        <p>Welcome to WordCreation!</p>
+        <p>Thank you for signing up. To complete your registration, please verify your email address by entering the OTP provided below:</p>
+        <p><strong>Your OTP: ${otp}</strong></p>
+        <p>This OTP is valid for 15 minutes. If you did not sign up for a WordCreation account, please ignore this email.</p>
+        <p>We are excited to have you on board and look forward to helping you create amazing content with ease. If you have any questions or need assistance, feel free to reach out to our support team at support@wordcreation.in.</p>
+        <p>Best regards,</p>
+        <p>The WordCreation Team</p>
+      `
   };
 
   try {
       await transporter.sendMail(mailOptions);
+      console.log('done')
       res.json({ success: true });
   } catch (error) {
       console.error('Error sending email:', error);
@@ -42,39 +52,82 @@ router.post('/send-otp', async (req, res) => {
 
 
 
+// router.post('/user/forgot-password', async (req, res) => {
+
+//   pool.query(`select * from users where email = '${req.body.email}'`,async(err,result)=>{
+//     if(err) throw err;
+//     else if(result.length>0){
+//   let newPassword = verify.generatePassword(12);
+//   pool.query(`update users set password = '${newPassword}' where email = '${req.body.email}'`,async(err,result)=>{
+//     if(err) throw err;
+//     else {
+
+//       const subject = 'Password Reset Request';
+//       const message = `
+//         <h1>Password Reset</h1>
+//         <p>Dear User,</p>
+//         <p>Your password has been reset. Please use the following password to log in:</p>
+//         <p><strong>${newPassword}</strong></p>
+//         <p>Make sure to change your password after logging in.</p>
+//         <br>
+//         <p>Regards,</p>
+//         <p>Your Company Name</p>
+//       `;
+//       await verify.sendUserMail(req.body.email,subject,message);
+//       res.redirect(`/user/forgot-password?message=${encodeURIComponent('Password sent successfully to your email.')}`)
+//     }
+//   })
+
+//     }
+//     else{
+//       res.redirect(`/user/forgot-password?message=${encodeURIComponent('Email ID Not Exists')}`)
+//     }
+//   })
+
+//  });
+
+
+
 router.post('/user/forgot-password', async (req, res) => {
+  pool.query(`SELECT * FROM users WHERE email = ?`, [req.body.email], async (err, result) => {
+    if (err) throw err;
+    else if (result.length > 0) {
+      let newPassword = verify.generatePassword(12);
+      pool.query(`UPDATE users SET password = ? WHERE email = ?`, [newPassword, req.body.email], async (err, result) => {
+        if (err) throw err;
+        else {
+          const subject = 'Your Temporary Password';
+          const message = `
+            <p>Dear User,</p>
+            
+            <p>We have received your request to reset your password. A temporary password has been generated for you to access your account.</p>
+            
+            <p><strong>Your temporary password is: ${newPassword}</strong></p>
+            
+            <p>Please use this password to log in to your account. Once you have successfully logged in, you will be prompted to update your password to one of your choosing.</p>
+            
+            <p>For security reasons, we recommend that you choose a strong, unique password that you do not use for any other accounts.</p>
+            
+            <p>If you encounter any issues or have any questions, please do not hesitate to contact our support team.</p>
+            
+            <p>Thank you for using our services.</p>
+            
+            <p>Best regards,</p>
+            <p>Word Creation Support Team</p>
+            <p>support@wordcreation.in</p>
+            <p>https://wordcreation.in</p>
 
-  pool.query(`select * from users where email = '${req.body.email}'`,async(err,result)=>{
-    if(err) throw err;
-    else if(result.length>0){
-  let newPassword = verify.generatePassword(12);
-  pool.query(`update users set password = '${newPassword}' where email = '${req.body.email}'`,async(err,result)=>{
-    if(err) throw err;
-    else {
-
-      const subject = 'Password Reset Request';
-      const message = `
-        <h1>Password Reset</h1>
-        <p>Dear User,</p>
-        <p>Your password has been reset. Please use the following password to log in:</p>
-        <p><strong>${newPassword}</strong></p>
-        <p>Make sure to change your password after logging in.</p>
-        <br>
-        <p>Regards,</p>
-        <p>Your Company Name</p>
-      `;
-      await verify.sendUserMail(req.body.email,subject,message);
-      res.redirect(`/user/forgot-password?message=${encodeURIComponent('Password sent successfully to your email.')}`)
+          `;
+          await verify.sendUserMail(req.body.email, subject, message);
+          res.redirect(`/user/forgot-password?message=${encodeURIComponent('Password sent successfully to your email.')}`);
+        }
+      });
+    } else {
+      res.redirect(`/user/forgot-password?message=${encodeURIComponent('Email ID Not Exists')}`);
     }
-  })
+  });
+});
 
-    }
-    else{
-      res.redirect(`/user/forgot-password?message=${encodeURIComponent('Email ID Not Exists')}`)
-    }
-  })
-
- });
 
 
 /* GET home page. */
@@ -120,11 +173,90 @@ router.get('/refund-policy',(req,res)=>{
 
 
 
+// router.post('/user/signup', async (req, res) => {
+//   try {
+//       let body = req.body;
+//       let subject = `Welcome Subject`
+//       let message = `Welcome Message`
+
+//       // Check if email or number already exists
+//       const existingRecord = await queryAsync('SELECT id FROM users WHERE email = ? OR number = ?', [body.email, body.number]);
+
+//       if (existingRecord.length > 0) {
+//           return res.redirect(`/user/signup?message=${encodeURIComponent('Email ID or Mobile Number Already Exists')}&color=${encodeURIComponent('red')}`);
+//       }
+
+//       body.created_at = verify.getCurrentDate();
+//       body.status = 'unverified';
+//       body.unique_id = verify.generateId();
+
+//       // Insert new record
+//       const insertResult = await queryAsync('INSERT INTO users SET ?', req.body);
+
+//       if (insertResult.affectedRows > 0) {
+//           await verify.sendInviduallyMail(req.body,subject,message)
+//           return res.redirect(`/user/signup?message=${encodeURIComponent('Signup Successfully')}&color=${encodeURIComponent('green')}`);
+//       } else {
+//           return res.redirect(`/user/signup?message=${encodeURIComponent('Error Occurred Please Try Again Later')}&color=${encodeURIComponent('red')}`);
+//       }
+//   } catch (error) {
+//       console.error('Error in Linked Account/add:', error);
+//       res.status(500).json({ msg: 'error' });
+//   }
+// });
+
+
+
 router.post('/user/signup', async (req, res) => {
   try {
       let body = req.body;
-      let subject = `Welcome Subject`
-      let message = `Welcome Message`
+      let subject = `Welcome to WordCreation – Your Partner in Personalized Academic Success!`
+      let message = `
+      <p>Dear ${body.name},</p>
+
+      <p>Welcome to WordCreation!</p>
+
+      <p>We are delighted to have you join our community. At WordCreation, we specialize in delivering personalized academic content tailored to your unique requirements. Whether you're a student aiming for academic excellence or a professional seeking expert writing support, we are here to help you achieve your goals.</p>
+
+      <h3>Our Services Include:</h3>
+      <ul>
+        <li><strong>Essay Writing</strong></li>
+        <li><strong>Report Writing</strong></li>
+        <li><strong>Reflective Writing</strong></li>
+        <li><strong>Academic Blogging</strong></li>
+        <li><strong>Thesis Writing</strong></li>
+        <li><strong>Abstract Writing</strong></li>
+        <li><strong>Ethics Forms</strong></li>
+        <li><strong>Case Studies</strong></li>
+        <li><strong>Technical Writing</strong></li>
+        <li><strong>Law Assignments</strong></li>
+        <li><strong>Research Articles</strong></li>
+        <li><strong>Literary Reviews</strong></li>
+        <li><strong>CV and Cover Letter Writing</strong></li>
+        <li><strong>Dissertations</strong> (both qualitative and quantitative research)</li>
+      </ul>
+
+      <h3>Why Choose WordCreation?</h3>
+      <ul>
+        <li><strong>Personalized Content:</strong> We customize each piece to meet your specific needs.</li>
+        <li><strong>Expert Writers:</strong> Our team consists of experienced professionals from various academic fields.</li>
+        <li><strong>On-Time Delivery:</strong> We ensure timely delivery of all your projects.</li>
+        <li><strong>Affordable Pricing:</strong> High-quality services at the lowest prices.</li>
+      </ul>
+
+      <p>If you have any other projects or unique requirements, don’t hesitate to reach out. We are committed to providing exceptional service and support for all your academic writing needs.</p>
+
+      <p>Feel free to contact us at support@wordcreation.in if you have any questions or need further assistance. We look forward to helping you succeed.</p>
+
+      <p>Warm regards,</p>
+
+      <p>The WordCreation Team</p>
+      <p>support@wordcreation.in</p>
+      <p>https://wordcreation.in/</p>
+
+      <p><br>
+      WordCreation – Crafting Your Academic Success, One Word at a Time</p>
+      `;
 
       // Check if email or number already exists
       const existingRecord = await queryAsync('SELECT id FROM users WHERE email = ? OR number = ?', [body.email, body.number]);
@@ -134,14 +266,14 @@ router.post('/user/signup', async (req, res) => {
       }
 
       body.created_at = verify.getCurrentDate();
-      body.status = 'unverified';
+      body.status = 'verified';
       body.unique_id = verify.generateId();
 
       // Insert new record
       const insertResult = await queryAsync('INSERT INTO users SET ?', req.body);
 
       if (insertResult.affectedRows > 0) {
-          await verify.sendInviduallyMail(req.body,subject,message)
+          await verify.sendInviduallyMail(req.body, subject, message);
           return res.redirect(`/user/signup?message=${encodeURIComponent('Signup Successfully')}&color=${encodeURIComponent('green')}`);
       } else {
           return res.redirect(`/user/signup?message=${encodeURIComponent('Error Occurred Please Try Again Later')}&color=${encodeURIComponent('red')}`);
@@ -151,6 +283,7 @@ router.post('/user/signup', async (req, res) => {
       res.status(500).json({ msg: 'error' });
   }
 });
+
 
 
 router.post('/user/login',(req,res)=>{
