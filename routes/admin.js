@@ -842,7 +842,7 @@ router.post('/dashboard/blog/update', verify.adminAuthenticationToken, upload.si
 
  router.post('/dashboard/promotion', async (req, res) => {
 
-  let body = req.body;
+  let body = req.body;  
 
   console.log(body)
   
