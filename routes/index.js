@@ -135,7 +135,8 @@ router.get('/', function(req, res, next) {
   var query = `select * from manage_filters where filters = 'services' and status = true order by id desc;`
   var query1 = `select * from manage_filters where filters = 'university' and status = true order by id desc;`
   var query2 = `select * from blogs order by id desc limit 3;`
-  pool.query(query+query1+query2,(err,result)=>{
+  var query3 = `select * from manage_filters where filters = 'banners' and status = true order by id desc;`
+  pool.query(query+query1+query2+query3,(err,result)=>{
     if(err) throw err;
     else res.render('index', { title: 'Express' , page:'home',result, MetaTags : onPageSeo.homePage });
   })
