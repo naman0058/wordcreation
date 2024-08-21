@@ -427,6 +427,9 @@ router.get('/sportzkeeda-create',(req,res)=>{
 
 
 
+ router.get('/sitemap.xml',(req,res)=>{
+  res.render('sitemap')
+ })
  
 
 module.exports = router;
