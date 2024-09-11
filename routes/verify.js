@@ -10,14 +10,6 @@ const queryAsync = util.promisify(pool.query).bind(pool);
 const nodemailer = require('nodemailer');
 
 
-// Create a transporter for sending emails
-// const transporter = nodemailer.createTransport({
-//     service: 'Gmail',
-//     auth: {
-//       user: 'filemakr@gmail.com',
-//       pass: 'mlgv tdpy tlnx sorq',
-//     },
-//   });
 
 
 
